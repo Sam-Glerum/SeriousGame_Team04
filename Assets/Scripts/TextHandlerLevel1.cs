@@ -22,7 +22,7 @@ public class TextHandler : MonoBehaviour
     [SerializeField]
     private PhoneRotation phoneRotation;
     [SerializeField]
-    private AudioClip shakeSound, secretMessage;
+    private AudioClip shakeSound, welcomeMessage, albertMessage, casetteMesage, level1completedMessage ;
 
     AudioSource audioSource;
 
@@ -86,6 +86,7 @@ public class TextHandler : MonoBehaviour
     }
     public void SelectTextBox(int step)
     {
+        audioSource.Stop();
         StopAllCoroutines();
         answer = "";
         CurrentStep = step;
@@ -110,24 +111,23 @@ public class TextHandler : MonoBehaviour
 
     private void Step0()
     {
-        string text = "Toen was het bandje afgelopen.";
+        timeRemaining = 20;
+        audioSource.PlayOneShot(albertMessage);
+        string text = "Ik loop hier al rond zolang ik leef, mijn vader was de oude directeur van deze plek.. dus je zou wel kunnen zeggen dat ik ben opgegroeid in dit theater. Ik ben hier altijd en ik ken alle hoeken en gaten van dit theater, maar toch kom je elke keer weer nieuwe dingen tegen.";
         largeText.text = text;
         voiceController.StartSpeaking(text);
         if (currentEnTextLayout != enTextLayout.FullText)
         {
             SwitchLayout(enTextLayout.FullText);
         }
-        if (timeRemaining > 5)
-        {
-            Step0_1();
-        }
     }
 
     private void Step0_1()
     {
-        audioSource.PlayOneShot(secretMessage);
+        timeRemaining = 40;
+        audioSource.PlayOneShot(albertMessage);
 
-        string text = "Waar is nu de overige informatie van Albert? ";
+        string text = "Nu we het er toch over hebben, ik heb gisteren een cassettebandje gevonden. Ik ben hem helaas kwijt geraakt, maar ik denk dat ik al weet waar hij ligt. Zou je in de garderobe kunnen kijken of hij in mijn rode colbert met gouden knopen ligt?";
         largeText.text = text;
         voiceController.StartSpeaking(text);
         if (currentEnTextLayout != enTextLayout.FullText)
@@ -138,8 +138,9 @@ public class TextHandler : MonoBehaviour
 
     private void Step1()
     {
-        timeRemaining = 10;
-        string text = "Er komen zo 3 opties. A, B en C. Klik op het scherm en zeg luidop A, B of C om antwoord te geven.";
+        timeRemaining = 20;
+        audioSource.PlayOneShot(casetteMesage);
+        string text = "Nu we het er toch over hebben, ik heb gisteren een cassettebandje gevonden. Ik ben hem helaas kwijt geraakt, maar ik denk dat ik al weet waar hij ligt. Zou je in de garderobe kunnen kijken of hij in mijn rode colbert met gouden knopen ligt?";
         largeText.text = text;
         voiceController.StartSpeaking(text);
 
@@ -171,15 +172,16 @@ public class TextHandler : MonoBehaviour
     }
     private void Step2()
     {
+        audioSource.PlayOneShot(welcomeMessage);
         level2 = true;
         //Play voice recorded OR
         //Play voice Simulated
         largeText.text = "";
         float tijd =+ Time.deltaTime;
 
-        string q1 = "Antwoord A  Het bandje terugdraaien, misschien hebben we wat gemist!";
-        string q2 = "Antwoord B  De B zijde van het bandje beluisteren.";
-        string q3 = "Antwoord C  Misschien is er in zijn colbert nog iets te vinden.";
+        string q1 = "Antwoord A  De casette zit in z'n voorvak!";
+        string q2 = "Antwoord B  Nee de casette zit in z'n achterzak!";
+        string q3 = "Antwoord C  De casette zit in zn binnenzak!";
 
 
         Qbutton0.text = q1;
@@ -227,7 +229,7 @@ public class TextHandler : MonoBehaviour
     private void Step2_1()
     {
 
-        string text = ($"Laten we proberen om de B zijde te beluisteren!");
+        string text = ($"Antwoord B is juist, hij zit inderdaad in zn achterzak!");
         largeText.text = text;
         voiceController.StartSpeaking(text);
 
@@ -271,8 +273,9 @@ public class TextHandler : MonoBehaviour
 
     private void Step3()
     {
+        audioSource.PlayOneShot(level1completedMessage);
         timerIsRunning = false;
-        string text = "Schud het scherm! om de cassette te verwisselen";
+        string text = "Gefeliciteerd je hebt level 1 gehaald.";
         largeText.text = text;
         voiceController.StartSpeaking(text);
 
@@ -287,7 +290,7 @@ public class TextHandler : MonoBehaviour
         timerIsRunning = false;
         string text = "Het geheim ligt hem bij de ring….De ring staat in verbinding met de kurk De ring heeft er iets mee te maken verstoring in de zin waardoor je niet alles hoort, je mist hele belangrijke informatie";
         largeText.text = text;
-        audioSource.PlayOneShot(secretMessage);
+        audioSource.PlayOneShot(welcomeMessage);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
