@@ -1829,6 +1829,10 @@ MonoBehaviour:
   audio_2: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
   audio_3: {fileID: 8300000, guid: 05752ae3a308dc2498a4d0c10c7c09d6, type: 3}
   audio_4: {fileID: 8300000, guid: 89407c08e81782b429052c622670a69e, type: 3}
+  img: {fileID: 967445688}
+  image_lock: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+  image_unlock: {fileID: 2800000, guid: 3090943ebe0e2d541a3a73faaccb4fe9, type: 3}
+  image_albert: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
 --- !u!82 &1211486737
 AudioSource:
   m_ObjectHideFlags: 0

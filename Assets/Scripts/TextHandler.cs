@@ -38,6 +38,13 @@ public class TextHandler : MonoBehaviour
 
     AudioSource audioSource;
 
+    [SerializeField]
+    private RawImage img;
+
+    public Texture image_lock; //Reference to a preset image
+    public Texture image_unlock; //Reference to a preset image
+    public Texture image_albert; //Reference to a preset image
+
     private string answer = ""; 
     private bool level2; 
     private enTextLayout currentEnTextLayout;
@@ -156,6 +163,7 @@ public class TextHandler : MonoBehaviour
     {
 
         audioSource.PlayOneShot(audio_2);
+        img.texture = image_lock;
 
         timeRemaining = 7;
 
@@ -199,8 +207,8 @@ public class TextHandler : MonoBehaviour
         float tijd =+ Time.deltaTime;
 
         string q1 = "Antwoord A  200";
-        string q2 = "Antwoord B  10.";
-        string q3 = "Antwoord C  850.";
+        string q2 = "Antwoord B  10";
+        string q3 = "Antwoord C  850";
 
 
         Qbutton0.text = q1;
@@ -249,6 +257,8 @@ public class TextHandler : MonoBehaviour
     {
         audioSource.PlayOneShot(audio_3);
 
+        img.texture = image_unlock;
+
         string text = ($"Je hebt de code gekraakt!");
         largeText.text = text;
         voiceController.StartSpeaking(text);
@@ -294,6 +304,8 @@ public class TextHandler : MonoBehaviour
     private void Step3()
     {
         timerIsRunning = false;
+
+        img.texture = image_albert;
 
         audioSource.PlayOneShot(audio_4);
 
