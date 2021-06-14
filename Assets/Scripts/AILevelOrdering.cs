@@ -7,7 +7,17 @@ using System.Diagnostics;
 
 public class AILevelOrdering : _Unity.MonoBehaviour
 {
-    // TODO : Connect with Unity
+    [_Unity.SerializeField]
+    private SolverMethod method;
+
+    private SolverFactory _solverFactory = new SolverFactory();
+    private Solver _solver;
+
+    void Start()
+    {
+        _solver = _solverFactory.makeSolver(method);
+    }
+
 }
 
 class DFSSolver : Solver
@@ -601,4 +611,31 @@ interface HeuristicFactory
 interface ClosestFactory
 {
     IComparer<BaseNode> makeComparer(double goal);
+}
+
+enum SolverMethod
+{
+    BFS,
+    DFS,
+    A_STAR,
+}
+
+class SolverFactory
+{
+    public Solver makeSolver(SolverMethod solverMethod)
+    {
+        RootNodeFactory rootNodeFactory = new NodeFactory();
+
+        switch (solverMethod)
+        {
+            case SolverMethod.BFS:
+                return new BFSSolver(rootNodeFactory, new ClosestFactoryImpl());
+            case SolverMethod.DFS:
+                return new DFSSolver(rootNodeFactory);
+            case SolverMethod.A_STAR:
+                return new AStarSolver(rootNodeFactory, new HeuristicFactoryImpl(), new ClosestFactoryImpl());
+            default:
+                throw new Exception("Unknown method");
+        }
+    }
 }
