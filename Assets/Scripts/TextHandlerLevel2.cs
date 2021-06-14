@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
-public class TextHandler : MonoBehaviour
+public class TextHandlerLevel2 : MonoBehaviour
 {
     public float StartTimeRemaining = 10;
     public enum enTextLayout { FullText, ThreeQuestions, WrongAnswer };
@@ -24,7 +24,26 @@ public class TextHandler : MonoBehaviour
     [SerializeField]
     private AudioClip shakeSound, secretMessage;
 
+    [SerializeField]
+    private AudioClip audio_1;
+
+    [SerializeField]
+    private AudioClip audio_2;
+
+    [SerializeField]
+    private AudioClip audio_3;
+
+    [SerializeField]
+    private AudioClip audio_4;
+
     AudioSource audioSource;
+
+    [SerializeField]
+    private RawImage img;
+
+    public Texture image_lock; //Reference to a preset image
+    public Texture image_unlock; //Reference to a preset image
+    public Texture image_albert; //Reference to a preset image
 
     private string answer = ""; 
     private bool level2; 
@@ -110,22 +129,26 @@ public class TextHandler : MonoBehaviour
 
     private void Step0()
     {
-        string text = "Toen was het bandje afgelopen.";
+        timeRemaining = 20;
+
+        audioSource.PlayOneShot(audio_1);
+
+
+        string text = "Welkom terug in het theater, leuk dat je er weer bent!";
         largeText.text = text;
         voiceController.StartSpeaking(text);
         if (currentEnTextLayout != enTextLayout.FullText)
         {
             SwitchLayout(enTextLayout.FullText);
         }
-        if (timeRemaining > 5)
-        {
-            Step0_1();
-        }
+        //if (timeRemaining > 5)
+        //{
+        //    Step0_1();
+        //}
     }
 
     private void Step0_1()
     {
-        audioSource.PlayOneShot(secretMessage);
 
         string text = "Waar is nu de overige informatie van Albert? ";
         largeText.text = text;
@@ -138,8 +161,14 @@ public class TextHandler : MonoBehaviour
 
     private void Step1()
     {
-        timeRemaining = 10;
-        string text = "Er komen zo 3 opties. A, B en C. Klik op het scherm en zeg luidop A, B of C om antwoord te geven.";
+
+        audioSource.PlayOneShot(audio_2);
+        img.texture = image_lock;
+
+        timeRemaining = 7;
+
+
+        string text = "Wat is de geheime code, 200, 10 of 850?"; 
         largeText.text = text;
         voiceController.StartSpeaking(text);
 
@@ -177,9 +206,9 @@ public class TextHandler : MonoBehaviour
         largeText.text = "";
         float tijd =+ Time.deltaTime;
 
-        string q1 = "Antwoord A  Het bandje terugdraaien, misschien hebben we wat gemist!";
-        string q2 = "Antwoord B  De B zijde van het bandje beluisteren.";
-        string q3 = "Antwoord C  Misschien is er in zijn colbert nog iets te vinden.";
+        string q1 = "Antwoord A  200";
+        string q2 = "Antwoord B  10";
+        string q3 = "Antwoord C  850";
 
 
         Qbutton0.text = q1;
@@ -226,8 +255,11 @@ public class TextHandler : MonoBehaviour
 
     private void Step2_1()
     {
+        audioSource.PlayOneShot(audio_3);
 
-        string text = ($"Laten we proberen om de B zijde te beluisteren!");
+        img.texture = image_unlock;
+
+        string text = ($"Je hebt de code gekraakt!");
         largeText.text = text;
         voiceController.StartSpeaking(text);
 
@@ -246,7 +278,7 @@ public class TextHandler : MonoBehaviour
     {
         //Only say if you choose A,B or C
         answer.Remove(9);
-        string text = ($"Niet correct het is niet {answer}!");
+        string text = ($"De code is niet gekraakt, {answer} is niet het juiste antwoord. Probeer het opnieuw!");
         largeText.text = text;
         voiceController.StartSpeaking(text);
 
@@ -254,7 +286,7 @@ public class TextHandler : MonoBehaviour
         {
             SwitchLayout(enTextLayout.WrongAnswer);
         }
-        timeRemaining = 2;
+        timeRemaining = 5;
         CurrentStep = originLevel-1;
     }
 
@@ -272,7 +304,12 @@ public class TextHandler : MonoBehaviour
     private void Step3()
     {
         timerIsRunning = false;
-        string text = "Schud het scherm! om de cassette te verwisselen";
+
+        img.texture = image_albert;
+
+        audioSource.PlayOneShot(audio_4);
+
+        string text = "Leid de ogen van de toeschouwer naar het kistje en leid jouw aandacht naar je stoel.";
         largeText.text = text;
         voiceController.StartSpeaking(text);
 
