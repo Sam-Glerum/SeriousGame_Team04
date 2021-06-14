@@ -39,6 +39,11 @@ public class StartMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void LoadScene1()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void OpenSettings()
     {
         SceneManager.LoadScene("SettingsMenu");
