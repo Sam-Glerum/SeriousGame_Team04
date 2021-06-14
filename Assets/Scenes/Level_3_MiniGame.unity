@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 59, y: 850}
+  m_AnchoredPosition: {x: 59, y: 779.5019}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &47657494
@@ -1308,7 +1308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -240, y: 751}
+  m_AnchoredPosition: {x: -240, y: 641}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &839499487
@@ -1368,7 +1368,7 @@ GameObject:
   - component: {fileID: 967445689}
   - component: {fileID: 967445688}
   m_Layer: 5
-  m_Name: Albert
+  m_Name: Texture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1386,7 +1386,7 @@ RectTransform:
   m_LocalScale: {x: 4.3011203, y: 4.3011203, z: 4.3011203}
   m_Children: []
   m_Father: {fileID: 1211486735}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1616,8 +1616,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.560326, y: 1.560326, z: 1.560326}
   m_Children:
-  - {fileID: 967445687}
   - {fileID: 1900922184}
+  - {fileID: 967445687}
   - {fileID: 47657493}
   - {fileID: 998096656}
   - {fileID: 2005884723}
@@ -1653,8 +1653,15 @@ MonoBehaviour:
   button2: {fileID: 1094786511}
   voiceController: {fileID: 839499488}
   phoneRotation: {fileID: 1682996268}
-  shakeSound: {fileID: 8300000, guid: 9849be08c1e193243a79a7d3ad8763a4, type: 3}
+  shakeSound: {fileID: 8300000, guid: f3b6356b6ccde304c9d1522621896d65, type: 3}
   secretMessage: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
+  Level3_1: {fileID: 8300000, guid: 4d285813cae427d4a9af26d495ef7df8, type: 3}
+  Level3_2: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
+  Level3_3: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+  Level3_4: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+  Albert: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+  Cassette: {fileID: 2800000, guid: 3645dbe19cc21cc428e0da98b43455cc, type: 3}
+  Image: {fileID: 967445686}
 --- !u!82 &1211486737
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2187,7 +2194,7 @@ RectTransform:
   m_Children:
   - {fileID: 759643939}
   m_Father: {fileID: 1211486735}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

@@ -22,12 +22,15 @@ public class TextHandler : MonoBehaviour
     [SerializeField]
     private PhoneRotation phoneRotation;
     [SerializeField]
-    private AudioClip shakeSound, secretMessage;
-
+    private AudioClip shakeSound, secretMessage, Level3_1, Level3_2, Level3_3, Level3_4;
+    [SerializeField]
+    private Texture Albert, Cassette;
+    [SerializeField]
+    private GameObject Image;
     AudioSource audioSource;
+    RawImage rawImage;
 
     private string answer = ""; 
-    private bool level2; 
     private enTextLayout currentEnTextLayout;
     private float timeRemaining = 10;
     private bool Step2Done = false; 
@@ -38,6 +41,8 @@ public class TextHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rawImage = Image.transform.GetComponent<RawImage>();
+
         timerIsRunning = true;
         SelectTextBox();
         audioSource = GetComponent<AudioSource>();
@@ -46,16 +51,16 @@ public class TextHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (answer.Equals( voiceController.VOICETEXT ) && CurrentStep == 2 && !Step2Done)
+        if (CurrentStep == 2 && !Step2Done)
         {
             CheckStep2();
         }
 
         answer = voiceController.VOICETEXT;
 
-        if (CurrentStep == 3)
+        if (CurrentStep == 6)
         {
-            CheckStep3();
+            CheckStep6();
         }
 
         if (timerIsRunning)
@@ -110,6 +115,104 @@ public class TextHandler : MonoBehaviour
 
     private void Step0()
     {
+        audioSource.PlayOneShot(Level3_2);
+
+        timeRemaining = 17;
+        string text = "In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk. Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien moet je daar is gaan zoeken...";
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
+
+        if (currentEnTextLayout != enTextLayout.FullText)
+        {
+            SwitchLayout(enTextLayout.FullText);
+        }
+    }
+
+
+    private void Step1()
+    {
+        audioSource.PlayOneShot(Level3_3);
+
+        timeRemaining = 10;
+        string text = "Albert fles wc ";
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
+
+        if (currentEnTextLayout != enTextLayout.FullText)
+        {
+            SwitchLayout(enTextLayout.FullText);
+        }
+    }
+
+    void CheckStep2()
+    {
+
+        if (answer.Equals("Glas", StringComparison.InvariantCultureIgnoreCase))
+        {
+            StepIncorrect(Qbutton1.text, 1);
+            Step2Done = true;
+        }
+        if (answer.Equals("Hout", StringComparison.InvariantCultureIgnoreCase))
+        {
+            Step2_1();
+            Step2Done = true;
+
+        }
+        if (answer.Equals("Steen", StringComparison.InvariantCultureIgnoreCase))
+        {
+            StepIncorrect(Qbutton2.text, 1);
+            Step2Done = true;
+
+        }
+    }
+    private void Step2()
+    {
+        audioSource.PlayOneShot(Level3_4);
+        largeText.text = "";
+        timerIsRunning = false;
+
+        string q1 = "Antwoord A  Glas";
+        string q2 = "Antwoord B  Hout";
+        string q3 = "Antwoord C  Steen";
+
+        Qbutton0.text = q1;
+
+        button0.onClick.AddListener(delegate () { StepIncorrect(Qbutton0.text, 1); });
+
+        Qbutton1.text = q2;
+        button1.onClick.AddListener(delegate () { Step2_1(); });
+
+        Qbutton2.text = q3;
+        button2.onClick.AddListener(delegate () { StepIncorrect(Qbutton2.text, 1); });
+
+        if (currentEnTextLayout != enTextLayout.ThreeQuestions)
+        {
+            SwitchLayout(enTextLayout.ThreeQuestions);
+        }
+    }
+
+    private void Step2_1()
+    {
+        audioSource.Stop();
+        string text = ($"Dat is correct het is natuurlijk van hout.");
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
+
+        if (currentEnTextLayout != enTextLayout.FullText)
+        {
+            SwitchLayout(enTextLayout.FullText);
+        }
+        timeRemaining = 5;
+        timerIsRunning = true;
+
+    }
+
+
+    private void Step3()
+    {
+        timeRemaining = 5;
+
+        timerIsRunning = true;
         string text = "Toen was het bandje afgelopen.";
         largeText.text = text;
         voiceController.StartSpeaking(text);
@@ -117,16 +220,10 @@ public class TextHandler : MonoBehaviour
         {
             SwitchLayout(enTextLayout.FullText);
         }
-        if (timeRemaining > 5)
-        {
-            Step0_1();
-        }
     }
 
-    private void Step0_1()
+    private void Step4()
     {
-        audioSource.PlayOneShot(secretMessage);
-
         string text = "Waar is nu de overige informatie van Albert? ";
         largeText.text = text;
         voiceController.StartSpeaking(text);
@@ -136,7 +233,7 @@ public class TextHandler : MonoBehaviour
         }
     }
 
-    private void Step1()
+    private void Step5()
     {
         timeRemaining = 10;
         string text = "Er komen zo 3 opties. A, B en C. Klik op het scherm en zeg luidop A, B of C om antwoord te geven.";
@@ -148,30 +245,24 @@ public class TextHandler : MonoBehaviour
             SwitchLayout(enTextLayout.FullText);
         }
     }
-    void CheckStep2()
+    void CheckStep6()
     {
 
         if (answer.Equals("A", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton1.text, 1);
-            Step2Done = true;
         }
         if (answer.Equals("B", StringComparison.InvariantCultureIgnoreCase))
         {
-            Step2_1();
-            Step2Done = true;
-
+            Step6_1();
         }
         if (answer.Equals("C", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton2.text, 1);
-            Step2Done = true;
-
         }
     }
-    private void Step2()
+    private void Step6()
     {
-        level2 = true;
         //Play voice recorded OR
         //Play voice Simulated
         largeText.text = "";
@@ -187,7 +278,7 @@ public class TextHandler : MonoBehaviour
         button0.onClick.AddListener(delegate () { StepIncorrect(Qbutton0.text, 1); });
 
         Qbutton1.text = q2;
-        button1.onClick.AddListener(delegate () { Step2_1(); });
+        button1.onClick.AddListener(delegate () { Step6_1(); });
 
         Qbutton2.text = q3;
         button2.onClick.AddListener(delegate () { StepIncorrect(Qbutton2.text, 1); });
@@ -224,7 +315,7 @@ public class TextHandler : MonoBehaviour
         }
     }
 
-    private void Step2_1()
+    private void Step6_1()
     {
 
         string text = ($"Laten we proberen om de B zijde te beluisteren!");
@@ -245,6 +336,8 @@ public class TextHandler : MonoBehaviour
     private void StepIncorrect(string answer, int originLevel)
     {
         //Only say if you choose A,B or C
+        audioSource.Stop();
+
         answer.Remove(9);
         string text = ($"Niet correct het is niet {answer}!");
         largeText.text = text;
@@ -254,13 +347,12 @@ public class TextHandler : MonoBehaviour
         {
             SwitchLayout(enTextLayout.WrongAnswer);
         }
-        timeRemaining = 2;
+        timeRemaining = 5;
         CurrentStep = originLevel-1;
     }
 
-    private void CheckStep3()
+    private void CheckStep7()
     {
-        bool move = false;
 
         if (phoneRotation.GyroX > 3)
         {
@@ -269,12 +361,14 @@ public class TextHandler : MonoBehaviour
         }
     }
 
-    private void Step3()
+    private void Step7()
     {
+        rawImage.texture = Cassette; 
         timerIsRunning = false;
         string text = "Schud het scherm! om de cassette te verwisselen";
         largeText.text = text;
         voiceController.StartSpeaking(text);
+
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
@@ -282,10 +376,12 @@ public class TextHandler : MonoBehaviour
         }
     }
 
-    private void Step4()
+    private void Step8()
     {
+        rawImage.texture = Albert;
+
         timerIsRunning = false;
-        string text = "Het geheim ligt hem bij de ring….De ring staat in verbinding met de kurk De ring heeft er iets mee te maken verstoring in de zin waardoor je niet alles hoort, je mist hele belangrijke informatie";
+        string text = "Het geheim ligt hem bij de ring...";
         largeText.text = text;
         audioSource.PlayOneShot(secretMessage);
 
