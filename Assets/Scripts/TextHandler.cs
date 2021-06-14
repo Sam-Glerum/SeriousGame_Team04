@@ -1,36 +1,63 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class TextHandler : MonoBehaviour
 {
     public float StartTimeRemaining = 10;
     public enum enTextLayout { FullText, ThreeQuestions, WrongAnswer };
-    public int CurrentStep = 0;
+    public int CurrentStep = -1;
 
     [SerializeField]
-    private TMP_Text largeText, questionText, timeText;
+    private TMP_Text largeText, timeText;
     [SerializeField]
     private TMP_Text Qbutton0, Qbutton1, Qbutton2;
     [SerializeField]
     private Button button0, button1, button2;
+    [SerializeField]
+    private VoiceController voiceController;
+    [SerializeField]
+    private PhoneRotation phoneRotation;
+    [SerializeField]
+    private AudioClip shakeSound, secretMessage;
+
+    AudioSource audioSource;
+
+    private string answer = ""; 
+    private bool level2; 
+    private enTextLayout currentEnTextLayout;
+    private float timeRemaining = 10;
+    private bool Step2Done = false; 
 
     protected bool timerIsRunning = false;
 
-    private enTextLayout currentEnTextLayout;
-    private float timeRemaining = 10;
 
     // Start is called before the first frame update
     void Start()
     {
         timerIsRunning = true;
+        SelectTextBox();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (answer.Equals( voiceController.VOICETEXT ) && CurrentStep == 2 && !Step2Done)
+        {
+            CheckStep2();
+        }
+
+        answer = voiceController.VOICETEXT;
+
+        if (CurrentStep == 3)
+        {
+            CheckStep3();
+        }
+
         if (timerIsRunning)
         {
             if (timeRemaining > 0)
@@ -59,6 +86,8 @@ public class TextHandler : MonoBehaviour
     }
     public void SelectTextBox(int step)
     {
+        StopAllCoroutines();
+        answer = "";
         CurrentStep = step;
 
         string function = $"Step{step}";
@@ -69,6 +98,8 @@ public class TextHandler : MonoBehaviour
 
     public void SelectTextBox()
     {
+        StopAllCoroutines();
+        answer = "";
         CurrentStep++;
 
         string function = $"Step{CurrentStep}";
@@ -79,8 +110,26 @@ public class TextHandler : MonoBehaviour
 
     private void Step0()
     {
-        largeText.text = "Step0 Text etcetra";
+        string text = "Toen was het bandje afgelopen.";
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
+        if (currentEnTextLayout != enTextLayout.FullText)
+        {
+            SwitchLayout(enTextLayout.FullText);
+        }
+        if (timeRemaining > 5)
+        {
+            Step0_1();
+        }
+    }
 
+    private void Step0_1()
+    {
+        audioSource.PlayOneShot(secretMessage);
+
+        string text = "Waar is nu de overige informatie van Albert? ";
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
         if (currentEnTextLayout != enTextLayout.FullText)
         {
             SwitchLayout(enTextLayout.FullText);
@@ -89,37 +138,117 @@ public class TextHandler : MonoBehaviour
 
     private void Step1()
     {
-        //Play voice recorded OR
-        //Play voice Simulated
-
-        questionText.text = "What colour?";
-        Qbutton0.text = "Red";
-        button0.onClick.AddListener(delegate () { Step1_1(); });
-        Qbutton1.text = "Green";
-        button1.onClick.AddListener(delegate () { StepIncorrect(Qbutton1.text, 1); });
-        Qbutton2.text = "Blue";
-        button2.onClick.AddListener(delegate () { StepIncorrect(Qbutton2.text, 1); });
-
-        if (currentEnTextLayout != enTextLayout.ThreeQuestions)
-        {
-            SwitchLayout(enTextLayout.ThreeQuestions);
-        }
-    }
-
-    private void Step1_1 ()
-    {
-        largeText.text = "Correct!";
+        timeRemaining = 10;
+        string text = "Er komen zo 3 opties. A, B en C. Klik op het scherm en zeg luidop A, B of C om antwoord te geven.";
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
             SwitchLayout(enTextLayout.FullText);
         }
-        timeRemaining = 2;
     }
+    void CheckStep2()
+    {
+
+        if (answer.Equals("A", StringComparison.InvariantCultureIgnoreCase))
+        {
+            StepIncorrect(Qbutton1.text, 1);
+            Step2Done = true;
+        }
+        if (answer.Equals("B", StringComparison.InvariantCultureIgnoreCase))
+        {
+            Step2_1();
+            Step2Done = true;
+
+        }
+        if (answer.Equals("C", StringComparison.InvariantCultureIgnoreCase))
+        {
+            StepIncorrect(Qbutton2.text, 1);
+            Step2Done = true;
+
+        }
+    }
+    private void Step2()
+    {
+        level2 = true;
+        //Play voice recorded OR
+        //Play voice Simulated
+        largeText.text = "";
+        float tijd =+ Time.deltaTime;
+
+        string q1 = "Antwoord A  Het bandje terugdraaien, misschien hebben we wat gemist!";
+        string q2 = "Antwoord B  De B zijde van het bandje beluisteren.";
+        string q3 = "Antwoord C  Misschien is er in zijn colbert nog iets te vinden.";
+
+
+        Qbutton0.text = q1;
+
+        button0.onClick.AddListener(delegate () { StepIncorrect(Qbutton0.text, 1); });
+
+        Qbutton1.text = q2;
+        button1.onClick.AddListener(delegate () { Step2_1(); });
+
+        Qbutton2.text = q3;
+        button2.onClick.AddListener(delegate () { StepIncorrect(Qbutton2.text, 1); });
+
+
+
+        StartCoroutine(CoRoutineQ1());
+
+        
+
+        if (currentEnTextLayout != enTextLayout.ThreeQuestions)
+        {
+            SwitchLayout(enTextLayout.ThreeQuestions);
+        }
+
+        IEnumerator CoRoutineQ1()
+        {
+            voiceController.StartSpeaking(q1);
+            yield return new WaitForSeconds(5);
+            StartCoroutine(CoRoutineQ2());
+
+        }
+        IEnumerator CoRoutineQ2()
+        {
+            voiceController.StartSpeaking(q2);
+            yield return new WaitForSeconds(5);
+            StartCoroutine(CoRoutineQ3());
+
+        }
+        IEnumerator CoRoutineQ3()
+        {
+            voiceController.StartSpeaking(q3);
+            yield return new WaitForSeconds(5);
+        }
+    }
+
+    private void Step2_1()
+    {
+
+        string text = ($"Laten we proberen om de B zijde te beluisteren!");
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
+
+        if (currentEnTextLayout != enTextLayout.FullText)
+        {
+            SwitchLayout(enTextLayout.FullText);
+        }
+        timeRemaining = 3;
+        timerIsRunning = true;
+
+    }
+
+
 
     private void StepIncorrect(string answer, int originLevel)
     {
-        largeText.text = $"Incorrect it is not {answer}!";
+        //Only say if you choose A,B or C
+        answer.Remove(9);
+        string text = ($"Niet correct het is niet {answer}!");
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.WrongAnswer)
         {
@@ -129,10 +258,36 @@ public class TextHandler : MonoBehaviour
         CurrentStep = originLevel-1;
     }
 
-
-    private void Step2()
+    private void CheckStep3()
     {
-        largeText.text = "Step2 Text etcetra";
+        bool move = false;
+
+        if (phoneRotation.GyroX > 3)
+        {
+            SelectTextBox();
+            audioSource.PlayOneShot(shakeSound);
+        }
+    }
+
+    private void Step3()
+    {
+        timerIsRunning = false;
+        string text = "Schud het scherm! om de cassette te verwisselen";
+        largeText.text = text;
+        voiceController.StartSpeaking(text);
+
+        if (currentEnTextLayout != enTextLayout.FullText)
+        {
+            SwitchLayout(enTextLayout.FullText);
+        }
+    }
+
+    private void Step4()
+    {
+        timerIsRunning = false;
+        string text = "Het geheim ligt hem bij de ring….De ring staat in verbinding met de kurk De ring heeft er iets mee te maken verstoring in de zin waardoor je niet alles hoort, je mist hele belangrijke informatie";
+        largeText.text = text;
+        audioSource.PlayOneShot(secretMessage);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
@@ -148,6 +303,7 @@ public class TextHandler : MonoBehaviour
                 GetChildWithName(gameObject, currentEnTextLayout.ToString()).SetActive(false);
                 GetChildWithName(gameObject, "FullText").SetActive(true);
                 currentEnTextLayout = enTextLayout.FullText;
+                timerIsRunning = true;
                 break;
             case enTextLayout.ThreeQuestions:
                 GetChildWithName(gameObject, currentEnTextLayout.ToString()).SetActive(false);
@@ -161,6 +317,7 @@ public class TextHandler : MonoBehaviour
                 GetChildWithName(gameObject, "ContinueButton").SetActive(false);
                 GetChildWithName(gameObject, "FullText").SetActive(true);
                 currentEnTextLayout = enTextLayout.FullText;
+                timerIsRunning = true;
                 break;
             default:
                 break;
