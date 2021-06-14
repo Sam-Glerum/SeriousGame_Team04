@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
-public class TextHandler : MonoBehaviour
+public class TextHandlerLevel1 : MonoBehaviour
 {
     public float StartTimeRemaining = 10;
     public enum enTextLayout { FullText, ThreeQuestions, WrongAnswer };
