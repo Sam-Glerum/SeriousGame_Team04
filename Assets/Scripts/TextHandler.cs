@@ -64,6 +64,12 @@ public class TextHandler : MonoBehaviour
             CheckStep6();
         }
 
+
+        if (CurrentStep == 7)
+        {
+            CheckStep7();
+        }
+
         if (timerIsRunning)
         {
             if (timeRemaining > 0)
@@ -359,7 +365,7 @@ public class TextHandler : MonoBehaviour
     private void CheckStep7()
     {
 
-        if (phoneRotation.GyroX > 3)
+        if (phoneRotation.GyroX > 6 )
         {
             SelectTextBox();
             audioSource.PlayOneShot(shakeSound);
