@@ -33,7 +33,8 @@ public class TextHandler : MonoBehaviour
     private string answer = ""; 
     private enTextLayout currentEnTextLayout;
     private float timeRemaining = 10;
-    private bool Step2Done = false; 
+    private bool Step2Done = false;
+    private bool Step6Done = false;
 
     protected bool timerIsRunning = false;
 
@@ -58,7 +59,7 @@ public class TextHandler : MonoBehaviour
 
         answer = voiceController.VOICETEXT;
 
-        if (CurrentStep == 6)
+        if (CurrentStep == 6 && !Step6Done)
         {
             CheckStep6();
         }
@@ -120,7 +121,6 @@ public class TextHandler : MonoBehaviour
         timeRemaining = 17;
         string text = "In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk. Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien moet je daar is gaan zoeken...";
         largeText.text = text;
-        voiceController.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
@@ -134,9 +134,8 @@ public class TextHandler : MonoBehaviour
         audioSource.PlayOneShot(Level3_3);
 
         timeRemaining = 10;
-        string text = "Albert fles wc ";
+        string text = "Albert... Oh Jaa ";
         largeText.text = text;
-        voiceController.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
@@ -251,14 +250,17 @@ public class TextHandler : MonoBehaviour
         if (answer.Equals("A", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton1.text, 1);
+            Step6Done = true;
         }
         if (answer.Equals("B", StringComparison.InvariantCultureIgnoreCase))
         {
             Step6_1();
+            Step6Done = true;
         }
         if (answer.Equals("C", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton2.text, 1);
+            Step6Done = true;
         }
     }
     private void Step6()
@@ -317,7 +319,7 @@ public class TextHandler : MonoBehaviour
 
     private void Step6_1()
     {
-
+        StopAllCoroutines();
         string text = ($"Laten we proberen om de B zijde te beluisteren!");
         largeText.text = text;
         voiceController.StartSpeaking(text);
@@ -335,6 +337,9 @@ public class TextHandler : MonoBehaviour
 
     private void StepIncorrect(string answer, int originLevel)
     {
+        Step2Done = false;
+        Step6Done = false;
+
         //Only say if you choose A,B or C
         audioSource.Stop();
 
