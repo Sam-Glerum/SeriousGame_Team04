@@ -2168,6 +2168,7 @@ GameObject:
   - component: {fileID: 1211486735}
   - component: {fileID: 1211486736}
   - component: {fileID: 1211486737}
+  - component: {fileID: 1211486738}
   m_Layer: 5
   m_Name: Step
   m_TagString: Untagged
@@ -2206,7 +2207,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211486734}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59021fc6a3572fa43b716634caf84892, type: 3}
   m_Name: 
@@ -2224,16 +2225,15 @@ MonoBehaviour:
   voiceController: {fileID: 839499488}
   phoneRotation: {fileID: 1682996268}
   shakeSound: {fileID: 8300000, guid: 9849be08c1e193243a79a7d3ad8763a4, type: 3}
-  welcomeMessage: {fileID: 8300000, guid: 71b420564950c21408bb681df111fc0c, type: 3}
-  albertMessage: {fileID: 8300000, guid: 8d08ad52f2078e741a11ea0c907f0101, type: 3}
-  casetteMesage: {fileID: 8300000, guid: c0a6250dca77b0f478532c9d972e0bc8, type: 3}
-  objects:
-  - audioSource: {fileID: 1109065671}
-    text: Welkom bij Theater de Schalm! Ik ben Albert en ik weet alles over dit theater.
-    fontSize: 42
-  - audioSource: {fileID: 1109065671}
-    text: Welkom bij Theater de Schalm! Ik ben Albert en ik weet alles over dit theater.
-    fontSize: 42
+  secretMessage: {fileID: 0}
+  audio_1: {fileID: 0}
+  audio_2: {fileID: 0}
+  audio_3: {fileID: 0}
+  audio_4: {fileID: 0}
+  img: {fileID: 0}
+  image_lock: {fileID: 0}
+  image_unlock: {fileID: 0}
+  image_albert: {fileID: 0}
 --- !u!82 &1211486737
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2330,6 +2330,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1211486738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211486734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6df511fbbbc07145b6e22130b463eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartTimeRemaining: 10
+  CurrentStep: -1
+  largeText: {fileID: 385512233}
+  timeText: {fileID: 47657495}
+  Qbutton0: {fileID: 1512075927}
+  Qbutton1: {fileID: 524360569}
+  Qbutton2: {fileID: 620474354}
+  button0: {fileID: 627825452}
+  button1: {fileID: 1316044803}
+  button2: {fileID: 1094786511}
+  voiceController: {fileID: 839499488}
+  phoneRotation: {fileID: 1682996268}
+  shakeSound: {fileID: 8300000, guid: f3b6356b6ccde304c9d1522621896d65, type: 3}
+  welcomeMessage: {fileID: 8300000, guid: 0a7ef2d6e5482084ea37e6821eabdcf8, type: 3}
+  albertMessage: {fileID: 8300000, guid: 8d08ad52f2078e741a11ea0c907f0101, type: 3}
+  casetteMesage: {fileID: 8300000, guid: c0a6250dca77b0f478532c9d972e0bc8, type: 3}
+  level1completedMessage: {fileID: 8300000, guid: b692655aae30f98498b648abecf98b90, type: 3}
 --- !u!1 &1316044801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,6 +2643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98436c2ede2113c4ca89fedee9149640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShowPopupAndroid: 1
 --- !u!4 &1595943385
 Transform:
   m_ObjectHideFlags: 0
@@ -2751,7 +2781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1900922184
 RectTransform:
   m_ObjectHideFlags: 0

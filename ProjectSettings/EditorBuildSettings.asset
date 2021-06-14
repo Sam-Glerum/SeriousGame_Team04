@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Homescreen.unity
     guid: 3dbcb630b247ca445bce52e9da93f033
-  - enabled: 0
-    path: Assets/Scenes/Level_1_MiniGame-Copy.unity
-    guid: cbe9b39312e6cdc44a44ccaabbcf7930
   - enabled: 1
     path: Assets/Scenes/Level_1_MiniGame - Copy.unity
     guid: b4debe41a4144044db46904d70a6873b
@@ -23,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SettingsMenu.unity
     guid: ae2eda78309d24842861933226d87cbd
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

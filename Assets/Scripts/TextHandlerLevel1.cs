@@ -172,7 +172,7 @@ public class TextHandlerLevel1 : MonoBehaviour
     }
     private void Step2()
     {
-        audioSource.PlayOneShot(welcomeMessage);
+        //audioSource.PlayOneShot(welcomeMessage);
         level2 = true;
         //Play voice recorded OR
         //Play voice Simulated
