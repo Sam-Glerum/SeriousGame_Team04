@@ -8,22 +8,28 @@ using static Player;
 public class StartMenu : MonoBehaviour
 {
     public Player player = new Player();
+   
 
     public void StartGame()
     {
+        PlayerData playerData = SaveSystem.LoadData(player);
+
         // Checks if a save file exists
         if (SaveSystem.LoadData(player) != null)
         {
-            if (player.currentLevel > 0)
+
+            if (playerData.currentLevel > 0)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + player.currentLevel);
-            }
-        }
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + playerData.currentLevel);
+            }    
+          
+}
         else
         {
+            player.currentLevel = 0;
             // Creates a new save file if it does not yet exist
             SaveSystem.SaveData(player);
-            // Loads the first level in the build settings list (after the menu scene)
+            //Loads the first level in the build settings list(after the menu scene)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }

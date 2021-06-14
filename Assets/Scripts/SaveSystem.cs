@@ -30,10 +30,13 @@ public static class SaveSystem
         stream.Close();
     }
 
-    public static IData LoadData(object obj) {
+    //public static IData LoadData(object obj)
+    
+        public static PlayerData LoadData(object obj) {
 
         string filename = null;
-        IData data = null;
+        //IData data = null;
+        PlayerData data = null;
 
         if (obj.GetType() == typeof(Player))
         {
