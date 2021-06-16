@@ -7,10 +7,24 @@ using UnityEngine;
 public class ServiceLocator : ScriptableObject
 {
     [SerializeField]
+    GameObject audioServicePrefab;
     AudioService audioService;
 
     public AudioService GetAudioService()
     {
+        audioService = InstantiateIfNull<AudioService>(audioService, audioServicePrefab);
         return audioService;
+    }
+
+    private T InstantiateIfNull<T>(T component, GameObject prefab)
+    {
+        if (component == null)
+        {
+            GameObject gameObject = Instantiate(prefab);
+            component = gameObject.GetComponent<T>();
+            if (component is UnityEngine.Object) DontDestroyOnLoad(component as UnityEngine.Object);
+        }
+
+        return component;
     }
 }

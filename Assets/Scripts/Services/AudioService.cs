@@ -6,21 +6,21 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "AudioServiceConfig", menuName = "ScriptableObjects/AudioService", order = 1)]
-
-public class AudioService : ScriptableObject
+public class AudioService : MonoBehaviour
 {
     [SerializeField]
     public UnityEvent<AudioSource> _onCurrentAudioFragementChanged;
+
+    // TODO : Implement methods for playing audio
 
     /// <summary>
     /// Plays muliple audioSources after each other, calls onCurrentAudioFragementChanged for each audioSource,
     /// when done the onDone callback is called.
     /// </summary>
-    public void PlayAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged = null, Action onDone = null)
-    {
-        playAudio(audioSources, onCurrentAudioFragementChanged, onDone);
-    }
+    // public void PlayAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged = null, Action onDone = null)
+    // {
+    //     StartCoroutine(playAudio(audioSources, onCurrentAudioFragementChanged, onDone));
+    // }
 
     private IEnumerator playAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged, Action onDone)
     {
