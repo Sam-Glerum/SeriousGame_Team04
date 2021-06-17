@@ -11,8 +11,6 @@ public class AudioService : MonoBehaviour
     [SerializeField]
     public UnityEvent<AudioSource> _onCurrentAudioFragementChanged;
 
-    // TODO : Implement methods for playing audio
-
     /// <summary>
     /// Plays muliple audioSources after each other, calls onCurrentAudioFragementChanged for each audioSource,
     /// when done the onDone callback is called.
