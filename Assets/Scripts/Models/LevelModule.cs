@@ -17,7 +17,7 @@ public class LevelModule
         return isRequired;
     }
 
-    List<AudioFragment> GetAudioFragments()
+    public List<AudioFragment> GetAudioFragments()
     {
         return audioFragments;
     }

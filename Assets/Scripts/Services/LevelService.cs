@@ -8,9 +8,12 @@ public class LevelService : ScriptableObject
 {
     [SerializeField]
     LevelData levelData;
-    int currentLevel; // TODO : Get level from storage
 
-    // Solver solver;
+    [SerializeField]
+    SolverMethod solverMethod;
+    SolverFactory solverFactory = new SolverFactory();
+
+    int currentLevel; // TODO : Get level from storage
 
     LevelModule currentLevelModule;
 

@@ -8,7 +8,7 @@ public class LevelData : ScriptableObject
     [SerializeField]
     List<LevelModule> levelOne;
 
-    List<LevelModule> getLevelOne()
+    public List<LevelModule> getLevelOne()
     {
         return levelOne;
     }

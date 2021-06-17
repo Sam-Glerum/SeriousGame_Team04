@@ -5,19 +5,24 @@ using System;
 using System.Linq;
 using System.Diagnostics;
 
-public class AILevelOrdering : _Unity.MonoBehaviour
+class SolverFactory
 {
-    [_Unity.SerializeField]
-    private SolverMethod method;
-
-    private SolverFactory _solverFactory = new SolverFactory();
-    private Solver _solver;
-
-    void Start()
+    public Solver makeSolver(SolverMethod solverMethod)
     {
-        _solver = _solverFactory.makeSolver(method);
-    }
+        RootNodeFactory rootNodeFactory = new NodeFactory();
 
+        switch (solverMethod)
+        {
+            case SolverMethod.BFS:
+                return new BFSSolver(rootNodeFactory, new ClosestFactoryImpl());
+            case SolverMethod.DFS:
+                return new DFSSolver(rootNodeFactory);
+            case SolverMethod.A_STAR:
+                return new AStarSolver(rootNodeFactory, new HeuristicFactoryImpl(), new ClosestFactoryImpl());
+            default:
+                throw new Exception("Unknown method");
+        }
+    }
 }
 
 class DFSSolver : Solver
@@ -29,13 +34,13 @@ class DFSSolver : Solver
         this.nodeFactory = nodeFactory;
     }
 
-    public Level solve(double prefferedDuration, List<Module> modules)
+    public List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules)
     {
         BaseNode rootNode = nodeFactory.makeRootNode();
         return solve(prefferedDuration, modules, rootNode)?.MapToLevel();
     }
 
-    private BaseNode solve(double prefferedDuration, List<Module> modules, BaseNode node)
+    private BaseNode solve(double prefferedDuration, List<LevelModule> modules, BaseNode node)
     {
         if (modules.Count == 0)
         {
@@ -70,7 +75,7 @@ class BFSSolver : Solver
         this.closestFactory = closestFactory;
     }
 
-    public Level solve(double prefferedDuration, List<Module> modules)
+    public List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules)
     {
         BaseNode rootNode = nodeFactory.makeRootNode();
         IComparer<BaseNode> closest = closestFactory.makeComparer(prefferedDuration);
@@ -123,7 +128,6 @@ class BFSSolver : Solver
     }
 }
 
-
 class AStarSolver : Solver
 {
     private RootNodeFactory nodeFactory;
@@ -137,7 +141,7 @@ class AStarSolver : Solver
         this.closestFactory = closestFactory;
     }
 
-    public Level solve(double prefferedDuration, List<Module> modules)
+    public List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules)
     {
         BaseNode rootNode = nodeFactory.makeRootNode();
         IComparer<BaseNode> closest = closestFactory.makeComparer(prefferedDuration);
@@ -204,6 +208,234 @@ class AStarSolver : Solver
         return bestNode?.MapToLevel();
     }
 }
+
+class HeuristicFactoryImpl : HeuristicFactory
+{
+    public IComparer<BaseNode> makeHeuristic(double goal)
+    {
+        return new AStarHeuistic(goal);
+    }
+}
+
+class AStarHeuistic : IComparer<BaseNode>
+{
+    double prefferedDuration;
+
+    public AStarHeuistic(double prefferedDuration)
+    {
+        this.prefferedDuration = prefferedDuration;
+    }
+
+    private double diff(BaseNode x)
+    {
+        return Math.Abs(prefferedDuration - x.totalDuration);
+    }
+
+    public int Compare(BaseNode x, BaseNode y)
+    {
+        double d1 = diff(x);
+        double d2 = diff(y);
+
+        if (d1 == d2) return 0;
+        else if (d1 > d2) return -1;
+        return 1;
+    }
+}
+
+class ClosestFactoryImpl : ClosestFactory
+{
+    public IComparer<BaseNode> makeComparer(double goal)
+    {
+        return new Closest(goal);
+    }
+}
+
+class Closest : IComparer<BaseNode>
+{
+    double prefferedDuration;
+
+    public Closest(double prefferedDuration)
+    {
+        this.prefferedDuration = prefferedDuration;
+    }
+
+    private double diff(BaseNode x)
+    {
+        return Math.Abs(prefferedDuration - x.totalDuration);
+    }
+
+    public int Compare(BaseNode x, BaseNode y)
+    {
+        double d1 = diff(x);
+        double d2 = diff(y);
+
+        if (d1 == d2) return 0;
+        else if (d1 > d2) return -1;
+        return 1;
+    }
+}
+
+class LevelItem
+{
+    public string moduleId;
+    public double duration;
+
+    public LevelItem(string moduleId, double duration)
+    {
+        this.moduleId = moduleId;
+        this.duration = duration;
+    }
+}
+
+class Node : BaseNode
+{
+    public double totalDuration { get; }
+
+    public double duration { get; }
+
+    public string id { get; }
+
+    public int Index { get; set; }
+
+    public int depth { get; }
+
+    public BaseNode parent { get; set; }
+    public List<BaseNode> children { get; private set; }
+
+    public List<BaseNode> path { get; set; }
+
+    public Node(string id, double duration, double currentTotalDuration, int depth, List<BaseNode> path)
+    {
+        this.depth = depth;
+        this.duration = duration;
+        this.id = id;
+        this.totalDuration = currentTotalDuration + this.duration;
+        this.children = new List<BaseNode> { };
+        this.path = new List<BaseNode>(path);
+        this.path.Add(this);
+    }
+
+    /// Empty node, when module is not required
+    private Node(double currentTotalDuration, int depth, List<BaseNode> path)
+    {
+        this.depth = depth;
+        this.duration = .0;
+        this.id = "";
+        this.totalDuration = currentTotalDuration + this.duration;
+        this.children = new List<BaseNode> { };
+        this.path = new List<BaseNode>(path);
+        this.path.Add(this);
+    }
+
+    public List<BaseNode> getPath()
+    {
+        List<BaseNode> _path = new List<BaseNode>(this.path);
+
+        // Remove empty nodes from path
+        _path.RemoveAll((node) => node.id == "");
+
+        return _path;
+    }
+
+    public void AddChildren(List<Node> nodes)
+    {
+        nodes.ForEach((node) =>
+        {
+            if (this.children.Find((v) => v == node) == null)
+                this.children.Add(node);
+        });
+    }
+
+    public void GenerateChildren(LevelModule nextModule)
+    {
+        List<Node> children = new List<Node> { };
+
+        var fragments = nextModule.GetAudioFragments();
+        var durations = fragments.ConvertAll<double>((x) => x.GetDuration());
+
+        // TODO
+        for (var i = 0; i < fragments.Count; i++)
+        {
+            var fragment = fragments[i];
+
+            children.Add(new Node((this.depth) + "--" + i + "-", .0, this.totalDuration, this.depth, this.path));
+        }
+
+        if (nextModule.GetIsRequired() == false)
+        {
+            // Add empty node, so module will be skipped
+            children.Add(new Node(this.totalDuration, this.depth + 1, this.path));
+        }
+        this.AddChildren(children);
+    }
+}
+
+
+static class Extensions
+{
+    public static Node MapToNode(this LevelModule module, string id, double duration, double currentTotalDuration, int currentDepth, List<BaseNode> path)
+    {
+        return new Node(id, duration, currentTotalDuration, currentDepth + 1, path);
+    }
+
+    public static List<LevelItem> MapToLevel(this BaseNode node)
+    {
+        return new List<LevelItem> { };
+    }
+}
+
+interface Solver
+{
+    List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules);
+}
+
+interface RootNodeFactory
+{
+    BaseNode makeRootNode();
+}
+
+interface BaseNode : IIndexedObject
+{
+    double totalDuration { get; }
+    double duration { get; }
+    string id { get; }
+    int depth { get; }
+    List<BaseNode> path { get; }
+    BaseNode parent { get; set; }
+    List<BaseNode> children { get; }
+
+    void GenerateChildren(LevelModule nextModule);
+    List<BaseNode> getPath();
+}
+
+class NodeFactory : RootNodeFactory
+{
+    public BaseNode makeRootNode()
+    {
+        return new Node("", .0, .0, 0, new List<BaseNode> { });
+    }
+}
+
+interface HeuristicFactory
+{
+    IComparer<BaseNode> makeHeuristic(double goal);
+}
+
+interface ClosestFactory
+{
+    IComparer<BaseNode> makeComparer(double goal);
+}
+
+enum SolverMethod
+{
+    BFS,
+    DFS,
+    A_STAR,
+}
+
+
+
+/// PriorityQueue \\\
 
 interface IIndexedObject
 {
@@ -356,286 +588,3 @@ internal class PriorityQueue<T> where T : IIndexedObject
     }
 }
 
-
-class HeuristicFactoryImpl : HeuristicFactory
-{
-    public IComparer<BaseNode> makeHeuristic(double goal)
-    {
-        return new AStarHeuistic(goal);
-    }
-}
-
-class AStarHeuistic : IComparer<BaseNode>
-{
-    double prefferedDuration;
-
-    public AStarHeuistic(double prefferedDuration)
-    {
-        this.prefferedDuration = prefferedDuration;
-    }
-
-    private double diff(BaseNode x)
-    {
-        return Math.Abs(prefferedDuration - x.totalDuration);
-    }
-
-    public int Compare(BaseNode x, BaseNode y)
-    {
-        double d1 = diff(x); //- (x.depth / 10);
-        double d2 = diff(y); //- (y.depth / 10);
-
-        if (d1 == d2) return 0;
-        else if (d1 > d2) return -1;
-        return 1;
-    }
-}
-
-class ClosestFactoryImpl : ClosestFactory
-{
-    public IComparer<BaseNode> makeComparer(double goal)
-    {
-        return new Closest(goal);
-    }
-}
-
-class Closest : IComparer<BaseNode>
-{
-    double prefferedDuration;
-
-    public Closest(double prefferedDuration)
-    {
-        this.prefferedDuration = prefferedDuration;
-    }
-
-    private double diff(BaseNode x)
-    {
-        return Math.Abs(prefferedDuration - x.totalDuration);
-    }
-
-    public int Compare(BaseNode x, BaseNode y)
-    {
-        double d1 = diff(x);
-        double d2 = diff(y);
-
-        if (d1 == d2) return 0;
-        else if (d1 > d2) return -1;
-        return 1;
-    }
-}
-
-class Level
-{
-    public readonly double totalDuration;
-    public readonly List<LevelItem> items;
-
-    public Level(double totalDuration, List<LevelItem> items)
-    {
-        this.totalDuration = totalDuration;
-        this.items = items;
-    }
-}
-
-class LevelItem
-{
-    public readonly int id;
-    public readonly double duration;
-
-    public LevelItem(int id, double duration)
-    {
-        this.id = id;
-        this.duration = duration;
-    }
-}
-
-class Module
-{
-    private List<double> _durations;
-    public List<double> durations
-    {
-        get { return _durations; }
-        private set
-        {
-            if (value.Count < 1) throw new Exception("Durations must have length > 0");
-            value.ForEach((duration) =>
-            {
-                if (duration <= .0) throw new Exception("Durations must be > .0");
-            });
-            _durations = value;
-        }
-    }
-    public readonly bool required;
-    public readonly int id;
-
-    public Module(List<double> durations, bool required, int id)
-    {
-        this.durations = durations;
-        this.required = required;
-        this.id = id;
-    }
-}
-
-class Node : BaseNode
-{
-    public double totalDuration { get; }
-
-    public double duration { get; }
-
-    public int id { get; }
-
-    public int Index { get; set; }
-
-    public int depth { get; }
-
-    public BaseNode parent { get; set; }
-    public List<BaseNode> children { get; private set; }
-
-    public List<BaseNode> path { get; set; }
-
-    public Node(int id, double duration, double currentTotalDuration, int depth, List<BaseNode> path)
-    {
-        this.depth = depth;
-        this.duration = duration;
-        this.id = id;
-        this.totalDuration = currentTotalDuration + this.duration;
-        this.children = new List<BaseNode> { };
-        this.path = new List<BaseNode>(path);
-        this.path.Add(this);
-    }
-
-    /// Empty node, when module is not required
-    private Node(double currentTotalDuration, int depth, List<BaseNode> path)
-    {
-        this.depth = depth;
-        this.duration = .0;
-        this.id = -1;
-        this.totalDuration = currentTotalDuration + this.duration;
-        this.children = new List<BaseNode> { };
-        this.path = new List<BaseNode>(path);
-        this.path.Add(this);
-    }
-
-    public List<BaseNode> getPath()
-    {
-        List<BaseNode> _path = new List<BaseNode>(this.path);
-
-        // Remove empty nodes from path
-        _path.RemoveAll((node) => node.id == -1);
-
-        return _path;
-    }
-
-    public void AddChildren(List<Node> nodes)
-    {
-        nodes.ForEach((node) =>
-        {
-            if (this.children.Find((v) => v == node) == null)
-                this.children.Add(node);
-        });
-    }
-
-    public void GenerateChildren(Module nextModule)
-    {
-        List<Node> children = new List<Node> { };
-
-        nextModule.durations.ForEach((duration) =>
-        {
-            children.Add(nextModule.MapToNode(duration, this.totalDuration, this.depth, this.path));
-        });
-
-        if (nextModule.required == false)
-        {
-            // Add empty node, so module will be skipped
-            children.Add(new Node(this.totalDuration, this.depth + 1, this.path));
-        }
-        this.AddChildren(children);
-    }
-}
-
-
-static class Extensions
-{
-    public static Node MapToNode(this Module module, double duration, double currentTotalDuration, int currentDepth, List<BaseNode> path)
-    {
-        return new Node(module.id, duration, currentTotalDuration, currentDepth + 1, path);
-    }
-
-    public static LevelItem MapToLevelItem(this BaseNode node)
-    {
-        return new LevelItem(node.id, node.duration);
-    }
-
-    public static Level MapToLevel(this BaseNode node)
-    {
-        var path = node.getPath();
-        return new Level(node.totalDuration, path.ConvertAll((node) => node.MapToLevelItem()));
-    }
-}
-
-interface Solver
-{
-    Level solve(double prefferedDuration, List<Module> modules);
-}
-
-interface RootNodeFactory
-{
-    BaseNode makeRootNode();
-}
-
-interface BaseNode : IIndexedObject
-{
-    double totalDuration { get; }
-    double duration { get; }
-    int id { get; }
-    int depth { get; }
-    List<BaseNode> path { get; }
-    BaseNode parent { get; set; }
-    List<BaseNode> children { get; }
-
-    void GenerateChildren(Module nextModule);
-    List<BaseNode> getPath();
-}
-
-class NodeFactory : RootNodeFactory
-{
-    public BaseNode makeRootNode()
-    {
-        return new Node(-1, .0, .0, 0, new List<BaseNode> { });
-    }
-}
-
-interface HeuristicFactory
-{
-    IComparer<BaseNode> makeHeuristic(double goal);
-}
-
-interface ClosestFactory
-{
-    IComparer<BaseNode> makeComparer(double goal);
-}
-
-enum SolverMethod
-{
-    BFS,
-    DFS,
-    A_STAR,
-}
-
-class SolverFactory
-{
-    public Solver makeSolver(SolverMethod solverMethod)
-    {
-        RootNodeFactory rootNodeFactory = new NodeFactory();
-
-        switch (solverMethod)
-        {
-            case SolverMethod.BFS:
-                return new BFSSolver(rootNodeFactory, new ClosestFactoryImpl());
-            case SolverMethod.DFS:
-                return new DFSSolver(rootNodeFactory);
-            case SolverMethod.A_STAR:
-                return new AStarSolver(rootNodeFactory, new HeuristicFactoryImpl(), new ClosestFactoryImpl());
-            default:
-                throw new Exception("Unknown method");
-        }
-    }
-}
