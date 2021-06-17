@@ -17,10 +17,10 @@ public class AudioService : MonoBehaviour
     /// Plays muliple audioSources after each other, calls onCurrentAudioFragementChanged for each audioSource,
     /// when done the onDone callback is called.
     /// </summary>
-    // public void PlayAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged = null, Action onDone = null)
-    // {
-    //     StartCoroutine(playAudio(audioSources, onCurrentAudioFragementChanged, onDone));
-    // }
+    public void PlayAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged = null, Action onDone = null)
+    {
+        StartCoroutine(playAudio(audioSources, onCurrentAudioFragementChanged, onDone));
+    }
 
     private IEnumerator playAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged, Action onDone)
     {
