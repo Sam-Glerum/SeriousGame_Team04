@@ -9,25 +9,31 @@ public class StartMenu : MonoBehaviour
 {
     public Player player = new Player();
 
-    public void StartGame()
+    private void LoadLevel(int levelIndex)
     {
-        // Checks if a save file exists
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + levelIndex);
+    }
+
+    private PlayerData LoadPlayerData(Player player)
+    {
+        return (PlayerData)SaveSystem.LoadData(player);
+    }
+
+    private bool SaveFileExists()
+    {
         if (SaveSystem.LoadData(player) != null)
         {
-            if (player.currentLevel > 0)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + player.currentLevel);
-            }
-        }
+            return true;
+        } 
         else
         {
-            // Creates a new save file if it does not yet exist
-            SaveSystem.SaveData(player);
-            // Loads the first level in the build settings list (after the menu scene)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            return false;
         }
     }
 
+    // ======================
+    // Unity Editor methods
+    // ======================
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -36,5 +42,21 @@ public class StartMenu : MonoBehaviour
     public void OpenSettings()
     {
         SceneManager.LoadScene("SettingsMenu");
+    }
+
+    public void StartGame()
+    {
+        // Checks if a save file exists
+        if (SaveFileExists() && LoadPlayerData(player).currentLevel > 0)
+        {
+            LoadLevel(LoadPlayerData(player).currentLevel);
+        }
+        else
+        {
+            // Creates a new save file if it does not yet exist
+            SaveSystem.SaveData(player);
+            // Loads the first level in the build settings list (after the menu scene)
+            LoadLevel(1);
+        }
     }
 }
