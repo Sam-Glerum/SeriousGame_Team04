@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,18 +18,39 @@ public class LevelService : ScriptableObject
 
     LevelModule currentLevelModule;
 
+    /// <summary>
+    /// Time the performance will begin and the game must have ended
+    /// </summary>
+    DateTime startTime;
+
     LevelModule GetCurrentModule()
     {
         return currentLevelModule;
     }
 
+    public double GetAvaiableTimeInSeconds()
+    {
+        return (startTime - new DateTime()).Seconds;
+    }
+
     LevelModule GoToNextModule()
     {
         // Run AI to get next module
+        List<LevelModule> modules = solverFactory
+            .makeSolver(solverMethod)
+            .solve(
+                GetAvaiableTime(),
+                levelData.getLevel(currentLevel)
+            );
 
         // Update currentLevelModule
+        currentLevelModule = modules[0];
 
-        // If level completed, update storage
+        // If level completed
+        if (currentLevelModule == null)
+        {
+            // TODO : update storage
+        }
 
         return currentLevelModule;
     }

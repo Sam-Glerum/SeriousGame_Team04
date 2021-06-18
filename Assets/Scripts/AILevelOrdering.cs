@@ -34,13 +34,13 @@ class DFSSolver : Solver
         this.nodeFactory = nodeFactory;
     }
 
-    public List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules)
+    public List<LevelModule> solve(double prefferedDuration, List<LevelModuleData> modules)
     {
         BaseNode rootNode = nodeFactory.makeRootNode();
         return solve(prefferedDuration, modules, rootNode)?.MapToLevel();
     }
 
-    private BaseNode solve(double prefferedDuration, List<LevelModule> modules, BaseNode node)
+    private BaseNode solve(double prefferedDuration, List<LevelModuleData> modules, BaseNode node)
     {
         if (modules.Count == 0)
         {
@@ -75,7 +75,7 @@ class BFSSolver : Solver
         this.closestFactory = closestFactory;
     }
 
-    public List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules)
+    public List<LevelModule> solve(double prefferedDuration, List<LevelModuleData> modules)
     {
         BaseNode rootNode = nodeFactory.makeRootNode();
         IComparer<BaseNode> closest = closestFactory.makeComparer(prefferedDuration);
@@ -141,7 +141,7 @@ class AStarSolver : Solver
         this.closestFactory = closestFactory;
     }
 
-    public List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules)
+    public List<LevelModule> solve(double prefferedDuration, List<LevelModuleData> modules)
     {
         BaseNode rootNode = nodeFactory.makeRootNode();
         IComparer<BaseNode> closest = closestFactory.makeComparer(prefferedDuration);
@@ -275,25 +275,11 @@ class Closest : IComparer<BaseNode>
     }
 }
 
-class LevelItem
-{
-    public string moduleId;
-    public double duration;
-
-    public LevelItem(string moduleId, double duration)
-    {
-        this.moduleId = moduleId;
-        this.duration = duration;
-    }
-}
-
 class Node : BaseNode
 {
     public double totalDuration { get; }
 
-    public double duration { get; }
-
-    public string id { get; }
+    public LevelModule module { get; }
 
     public int Index { get; set; }
 
@@ -304,24 +290,21 @@ class Node : BaseNode
 
     public List<BaseNode> path { get; set; }
 
-    public Node(string id, double duration, double currentTotalDuration, int depth, List<BaseNode> path)
+    public Node(double currentTotalDuration, int depth, List<BaseNode> path, LevelModule module)
     {
         this.depth = depth;
-        this.duration = duration;
-        this.id = id;
-        this.totalDuration = currentTotalDuration + this.duration;
+        this.module = module;
+        this.totalDuration = currentTotalDuration + module.GetDuration();
         this.children = new List<BaseNode> { };
         this.path = new List<BaseNode>(path);
         this.path.Add(this);
     }
 
     /// Empty node, when module is not required
-    private Node(double currentTotalDuration, int depth, List<BaseNode> path)
+    public Node(double currentTotalDuration, int depth, List<BaseNode> path)
     {
         this.depth = depth;
-        this.duration = .0;
-        this.id = "";
-        this.totalDuration = currentTotalDuration + this.duration;
+        this.totalDuration = currentTotalDuration;
         this.children = new List<BaseNode> { };
         this.path = new List<BaseNode>(path);
         this.path.Add(this);
@@ -332,7 +315,7 @@ class Node : BaseNode
         List<BaseNode> _path = new List<BaseNode>(this.path);
 
         // Remove empty nodes from path
-        _path.RemoveAll((node) => node.id == "");
+        _path.RemoveAll((node) => node.module == null);
 
         return _path;
     }
@@ -346,47 +329,47 @@ class Node : BaseNode
         });
     }
 
-    public void GenerateChildren(LevelModule nextModule)
+    public void GenerateChildren(LevelModuleData nextModule)
     {
-        List<Node> children = new List<Node> { };
+        // List<Node> children = nextModule.GenerateChildren();
 
-        var fragments = nextModule.GetAudioFragments();
-        var durations = fragments.ConvertAll<double>((x) => x.GetDuration());
+        // if (nextModule.GetIsRequired() == false)
+        // {
+        //     // Add empty node, so module will be skipped
+        //     children.Add(new Node(this.totalDuration, this.depth + 1, this.path));
+        // }
 
-        // TODO
-        for (var i = 0; i < fragments.Count; i++)
-        {
-            var fragment = fragments[i];
-
-            children.Add(new Node((this.depth) + "--" + i + "-", .0, this.totalDuration, this.depth, this.path));
-        }
-
-        if (nextModule.GetIsRequired() == false)
-        {
-            // Add empty node, so module will be skipped
-            children.Add(new Node(this.totalDuration, this.depth + 1, this.path));
-        }
-        this.AddChildren(children);
+        this.AddChildren(nextModule.GenerateChildren(this));
     }
 }
 
 
 static class Extensions
 {
-    public static Node MapToNode(this LevelModule module, string id, double duration, double currentTotalDuration, int currentDepth, List<BaseNode> path)
+    public static List<Node> GenerateChildren(this LevelModuleData module, BaseNode parent)
     {
-        return new Node(id, duration, currentTotalDuration, currentDepth + 1, path);
+        List<Node> children = new List<Node> { };
+
+        new List<LevelModule> { module.GetShortVersion(), module.GetLongVersion() }.ForEach((_module) =>
+        {
+            new Node(parent.totalDuration, parent.depth, parent.path, _module);
+        });
+
+        return children;
     }
 
-    public static List<LevelItem> MapToLevel(this BaseNode node)
+    public static List<LevelModule> MapToLevel(this BaseNode node)
     {
-        return new List<LevelItem> { };
+        return node.getPath().ConvertAll((item) =>
+        {
+            return item.module;
+        });
     }
 }
 
 interface Solver
 {
-    List<LevelItem> solve(double prefferedDuration, List<LevelModule> modules);
+    List<LevelModule> solve(double prefferedDuration, List<LevelModuleData> modules);
 }
 
 interface RootNodeFactory
@@ -397,14 +380,13 @@ interface RootNodeFactory
 interface BaseNode : IIndexedObject
 {
     double totalDuration { get; }
-    double duration { get; }
-    string id { get; }
+    LevelModule module { get; }
     int depth { get; }
     List<BaseNode> path { get; }
     BaseNode parent { get; set; }
     List<BaseNode> children { get; }
 
-    void GenerateChildren(LevelModule nextModule);
+    void GenerateChildren(LevelModuleData nextModule);
     List<BaseNode> getPath();
 }
 
@@ -412,7 +394,7 @@ class NodeFactory : RootNodeFactory
 {
     public BaseNode makeRootNode()
     {
-        return new Node("", .0, .0, 0, new List<BaseNode> { });
+        return new Node(.0, 0, new List<BaseNode> { });
     }
 }
 

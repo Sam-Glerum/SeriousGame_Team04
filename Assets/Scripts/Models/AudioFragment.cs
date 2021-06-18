@@ -7,7 +7,6 @@ public class AudioFragment
 {
     public AudioSource audioSource;
     public string text;
-    public bool isRequired;
 
     public AudioSource GetAudioSource()
     {
@@ -17,11 +16,6 @@ public class AudioFragment
     public string GetText()
     {
         return text;
-    }
-
-    public bool GetIsRequired()
-    {
-        return isRequired;
     }
 
     public double GetDuration()

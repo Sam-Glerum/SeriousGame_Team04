@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class AudioService : MonoBehaviour
 {
     [SerializeField]
-    public UnityEvent<AudioSource> _onCurrentAudioFragementChanged;
+    UnityEvent<AudioSource> _onCurrentAudioFragementChanged;
 
     /// <summary>
     /// Plays muliple audioSources after each other, calls onCurrentAudioFragementChanged for each audioSource,

@@ -6,15 +6,31 @@ using System.Linq;
 [System.Serializable]
 public class LevelModule
 {
+    public enum Type
+    {
+        AUDIO,
+        QUIZ,
+        GAME
+    }
+
+    public enum Duration
+    {
+        SHORT,
+        LONG
+    }
+
     [SerializeField]
     List<AudioFragment> audioFragments;
 
     [SerializeField]
-    bool isRequired;
+    double duration;
 
-    public bool GetIsRequired()
+    [SerializeField]
+    Type type;
+
+    public Type GetLevelModuleType()
     {
-        return isRequired;
+        return type;
     }
 
     public List<AudioFragment> GetAudioFragments()
@@ -22,12 +38,48 @@ public class LevelModule
         return audioFragments;
     }
 
-    double GetDuration()
+    public double GetDuration()
     {
-        return audioFragments.Aggregate(.0, (total, next) =>
+        switch (type)
         {
-            return total + next.GetDuration();
-        });
+            case Type.AUDIO:
+                return audioFragments.Aggregate(.0, (total, next) =>
+            {
+                return total + next.GetDuration();
+            });
+            default:
+                return duration;
+        }
+    }
+
+}
+
+[System.Serializable]
+public class LevelModuleData
+{
+
+    [SerializeField]
+    bool isRequired;
+
+    [SerializeField]
+    LevelModule shortVersion;
+
+    [SerializeField]
+    LevelModule longVersion;
+
+    public LevelModule GetShortVersion()
+    {
+        return shortVersion;
+    }
+
+    public LevelModule GetLongVersion()
+    {
+        return longVersion;
+    }
+
+    public bool GetIsRequired()
+    {
+        return isRequired;
     }
 }
 

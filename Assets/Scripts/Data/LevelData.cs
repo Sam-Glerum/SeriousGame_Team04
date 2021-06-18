@@ -6,11 +6,27 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     [SerializeField]
-    List<LevelModule> levelOne;
+    List<LevelModuleData> levelOne;
 
-    public List<LevelModule> getLevelOne()
+    [SerializeField]
+    List<LevelModuleData> levelTwo;
+
+    [SerializeField]
+    List<LevelModuleData> levelThree;
+
+    public List<LevelModuleData> getLevel(int level)
     {
-        return levelOne;
+        switch (level)
+        {
+            case 1:
+                return levelOne;
+            case 2:
+                return levelOne;
+            case 3:
+                return levelOne;
+            default:
+                throw new System.Exception("Unkown level");
+        }
     }
 }
 
