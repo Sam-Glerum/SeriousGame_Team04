@@ -33,8 +33,8 @@ public class TextHandler : MonoBehaviour
     private string answer = ""; 
     private enTextLayout currentEnTextLayout;
     private float timeRemaining = 10;
-    private bool Step2Done = false;
-    private bool Step6Done = false;
+    private bool step2Done = false;
+    private bool step6Done = false;
 
     protected bool timerIsRunning = false;
 
@@ -43,29 +43,29 @@ public class TextHandler : MonoBehaviour
     void Start()
     {
         rawImage = Image.transform.GetComponent<RawImage>();
+        audioSource = GetComponent<AudioSource>();
 
         timerIsRunning = true;
         SelectTextBox();
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CurrentStep == 2 && !Step2Done)
+        if (CurrentStep == 2 && !step2Done)
         {
             CheckStep2();
         }
 
         answer = voiceController.VOICETEXT;
 
-        if (CurrentStep == 6 && !Step6Done)
+        if (CurrentStep == 6 && !step6Done)
         {
             CheckStep6();
         }
 
 
-        if (CurrentStep == 7)
+        if (CurrentStep == 7 )
         {
             CheckStep7();
         }
@@ -155,18 +155,18 @@ public class TextHandler : MonoBehaviour
         if (answer.Equals("Glas", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton1.text, 1);
-            Step2Done = true;
+            step2Done = true;
         }
         if (answer.Equals("Hout", StringComparison.InvariantCultureIgnoreCase))
         {
             Step2_1();
-            Step2Done = true;
+            step2Done = true;
 
         }
         if (answer.Equals("Steen", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton2.text, 1);
-            Step2Done = true;
+            step2Done = true;
 
         }
     }
@@ -256,17 +256,17 @@ public class TextHandler : MonoBehaviour
         if (answer.Equals("A", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton1.text, 1);
-            Step6Done = true;
+            step6Done = true;
         }
         if (answer.Equals("B", StringComparison.InvariantCultureIgnoreCase))
         {
             Step6_1();
-            Step6Done = true;
+            step6Done = true;
         }
         if (answer.Equals("C", StringComparison.InvariantCultureIgnoreCase))
         {
             StepIncorrect(Qbutton2.text, 1);
-            Step6Done = true;
+            step6Done = true;
         }
     }
     private void Step6()
@@ -343,8 +343,8 @@ public class TextHandler : MonoBehaviour
 
     private void StepIncorrect(string answer, int originLevel)
     {
-        Step2Done = false;
-        Step6Done = false;
+        step2Done = false;
+        step6Done = false;
 
         //Only say if you choose A,B or C
         audioSource.Stop();

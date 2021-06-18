@@ -9,9 +9,6 @@ public class VoiceController : MonoBehaviour
 {
     const string LANG_CODE = "nl_NL";
 
-    [SerializeField]
-    TMP_Text uiText;
-
     public string VOICETEXT;
 
     private void Start()
@@ -33,7 +30,7 @@ public class VoiceController : MonoBehaviour
         
 #endif
     }
-    #region Text to Speech
+    #region Speech to Text
 
     public void StartSpeaking(string message)
     {
@@ -71,7 +68,6 @@ public class VoiceController : MonoBehaviour
 
     void OnFinalSpeechResult(string result)
     {
-        uiText.text = result;
         VOICETEXT = result;
     }
 
@@ -82,8 +78,4 @@ public class VoiceController : MonoBehaviour
         SpeechToText.instance.Setting(code);
     }
 
-    public void test()
-    {
-        Debug.Log("Test!");
-    }
 }
