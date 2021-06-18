@@ -1053,6 +1053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 633617152}
+  - component: {fileID: 633617156}
   - component: {fileID: 633617151}
   - component: {fileID: 633617150}
   - component: {fileID: 633617149}
@@ -1213,6 +1214,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 888.16016, y: 1388.6704, z: 244.90779}
   m_Center: {x: -0.25738752, y: 85.47191, z: -11.352279}
+--- !u!114 &633617156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633617148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ba62d7c35dbb448bdc2a718c6809d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img: {fileID: 967445688}
+  largeText: {fileID: 385512233}
 --- !u!1 &759643938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,6 +2360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98436c2ede2113c4ca89fedee9149640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShowPopupAndroid: 1
 --- !u!4 &1595943385
 Transform:
   m_ObjectHideFlags: 0

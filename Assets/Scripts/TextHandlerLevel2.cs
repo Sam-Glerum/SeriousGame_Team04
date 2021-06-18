@@ -7,6 +7,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class TextHandlerLevel2 : MonoBehaviour
 {
+    private UIManager uIManager;
+
     public float StartTimeRemaining = 10;
     public enum enTextLayout { FullText, ThreeQuestions, WrongAnswer };
     public int CurrentStep = -1;
@@ -57,6 +59,9 @@ public class TextHandlerLevel2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        uIManager = gameObject.AddComponent<UIManager>();
+
+
         timerIsRunning = true;
         SelectTextBox();
         audioSource = GetComponent<AudioSource>();
@@ -136,11 +141,15 @@ public class TextHandlerLevel2 : MonoBehaviour
 
         string text = "Welkom terug in het theater, leuk dat je er weer bent!";
         largeText.text = text;
-        voiceController.StartSpeaking(text);
-        if (currentEnTextLayout != enTextLayout.FullText)
-        {
-            SwitchLayout(enTextLayout.FullText);
-        }
+
+        uIManager.setLargeText("poep");
+        uIManager.setImageTexture(image_unlock);
+
+        //voiceController.StartSpeaking(text);
+        //if (currentEnTextLayout != enTextLayout.FullText)
+        //{
+        //    SwitchLayout(enTextLayout.FullText);
+        //}
         //if (timeRemaining > 5)
         //{
         //    Step0_1();
