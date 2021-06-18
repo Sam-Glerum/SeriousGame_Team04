@@ -17,7 +17,7 @@ public class LevelService : ScriptableObject
     [SerializeField]
     string levelStorage;
 
-    public int currentLevel
+    public int CurrentLevel
     {
         get
         {
@@ -61,14 +61,28 @@ public class LevelService : ScriptableObject
         return (startTime - new DateTime()).Seconds;
     }
 
-    LevelModule GoToNextModule()
+    private List<LevelModuleData> GetLeftModules()
     {
+        List<LevelModuleData> currentLevelModules = levelData.getLevel(CurrentLevel);
+        int currentIndex = currentLevelModules.FindIndex((moduleData) =>
+        {
+            return (moduleData.GetShortVersion() == currentLevelModule) ||
+              (moduleData.GetLongVersion() == currentLevelModule);
+        });
+
+        return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - 1 - currentIndex);
+    }
+
+    public LevelModule GoToNextModule()
+    {
+
+
         // Run AI to get next module
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
             .solve(
                 GetAvaiableTimeInSeconds(),
-                levelData.getLevel(currentLevel)
+                GetLeftModules()
             );
 
         // Update currentLevelModule
@@ -78,7 +92,7 @@ public class LevelService : ScriptableObject
         if (currentLevelModule == null)
         {
             // Increment level
-            currentLevel = currentLevel + 1;
+            CurrentLevel = CurrentLevel + 1;
         }
 
         return currentLevelModule;
