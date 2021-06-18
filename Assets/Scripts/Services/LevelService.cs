@@ -29,12 +29,25 @@ public class LevelService : ScriptableObject
             FileStorage.StoreData<int>(levelStorage, value);
         }
     }
+
     LevelModule currentLevelModule;
 
     /// <summary>
     /// Time the performance will begin and the game must have ended
     /// </summary>
     DateTime startTime;
+    public DateTime StartTime
+    {
+        get
+        {
+            return this.startTime;
+        }
+        set
+        {
+            this.startTime = value;
+        }
+    }
+
 
     LevelModule GetCurrentModule()
     {
