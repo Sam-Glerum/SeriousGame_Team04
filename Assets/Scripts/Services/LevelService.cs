@@ -21,7 +21,9 @@ public class LevelService : ScriptableObject
     {
         get
         {
-            return FileStorage.GetStoredData<int>(levelStorage) ?? 1;
+            int level = FileStorage.GetStoredData<int>(levelStorage);
+            if (level == null) level = 1;
+            return level;
         }
 
         set

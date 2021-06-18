@@ -21,9 +21,9 @@ public class LevelData : ScriptableObject
             case 1:
                 return levelOne;
             case 2:
-                return levelOne;
+                return levelTwo;
             case 3:
-                return levelOne;
+                return levelThree;
             default:
                 throw new System.Exception("Unkown level");
         }

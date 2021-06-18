@@ -331,15 +331,15 @@ class Node : BaseNode
 
     public void GenerateChildren(LevelModuleData nextModule)
     {
-        // List<Node> children = nextModule.GenerateChildren();
+        List<Node> children = nextModule.GenerateChildren(this);
 
-        // if (nextModule.GetIsRequired() == false)
-        // {
-        //     // Add empty node, so module will be skipped
-        //     children.Add(new Node(this.totalDuration, this.depth + 1, this.path));
-        // }
+        if (nextModule.GetIsRequired() == false)
+        {
+            // Add empty node, so module will be skipped
+            children.Add(new Node(this.totalDuration, this.depth + 1, this.path));
+        }
 
-        this.AddChildren(nextModule.GenerateChildren(this));
+        this.AddChildren(children);
     }
 }
 
