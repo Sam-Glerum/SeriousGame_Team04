@@ -14,8 +14,21 @@ public class LevelService : ScriptableObject
     SolverMethod solverMethod;
     SolverFactory solverFactory = new SolverFactory();
 
-    int currentLevel; // TODO : Get level from storage
+    [SerializeField]
+    string levelStorage;
 
+    public int currentLevel
+    {
+        get
+        {
+            return FileStorage.GetStoredData<int>(levelStorage) ?? 1;
+        }
+
+        set
+        {
+            FileStorage.StoreData<int>(levelStorage, value);
+        }
+    }
     LevelModule currentLevelModule;
 
     /// <summary>
@@ -49,7 +62,8 @@ public class LevelService : ScriptableObject
         // If level completed
         if (currentLevelModule == null)
         {
-            // TODO : update storage
+            // Increment level
+            currentLevel = currentLevel + 1;
         }
 
         return currentLevelModule;
