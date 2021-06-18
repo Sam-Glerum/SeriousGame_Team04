@@ -39,7 +39,7 @@ public class LevelService : ScriptableObject
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
             .solve(
-                GetAvaiableTime(),
+                GetAvaiableTimeInSeconds(),
                 levelData.getLevel(currentLevel)
             );
 
