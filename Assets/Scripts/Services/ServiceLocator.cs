@@ -8,25 +8,21 @@ public class ServiceLocator : ScriptableObject
 {
     [SerializeField]
     GameObject audioServicePrefab;
-    GameObject voiceControllerPrefab;
     AudioService audioService;
-    VoiceController voiceController;
 
+    [SerializeField]
+    LevelService levelService;
 
     public AudioService GetAudioService()
     {
         audioService = InstantiateIfNull<AudioService>(audioService, audioServicePrefab);
-
         return audioService;
     }
 
-    public VoiceController GetVoiceController()
+    public LevelService GetLevelService()
     {
-        voiceController = InstantiateIfNull<VoiceController>(voiceController, voiceControllerPrefab);
-
-        return voiceController;
+        return levelService;
     }
-
 
     private T InstantiateIfNull<T>(T component, GameObject prefab)
     {
