@@ -9,7 +9,7 @@ public static class FileStorage
 {
     private static string GetFilePath(string fileName)
     {
-        return Application.persistentDataPath + fileName + ".bin";
+        return Application.persistentDataPath + "/" + fileName + ".bin";
     }
 
     /// <summary>
