@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class TextHandlerLevel1 : MonoBehaviour
 {
     public float StartTimeRemaining = 10;
-    public enum enTextLayout { FullText, ThreeQuestions, WrongAnswer };
+    public enum enTextLayout { ThreeQuestions, WrongAnswer, FullText };
     public int CurrentStep = -1;
 
     [SerializeField]
@@ -262,7 +262,6 @@ public class TextHandlerLevel1 : MonoBehaviour
 
     private void CheckStep3()
     {
-        bool move = false;
 
         if (phoneRotation.GyroX > 3)
         {
