@@ -7,6 +7,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class TextHandlerLevel2 : MonoBehaviour
 {
+
+    [SerializeField]
+    private ServiceLocator serviceLocator;
+
+
+
     private UIManager uIManager;
 
     public float StartTimeRemaining = 10;
@@ -59,6 +65,10 @@ public class TextHandlerLevel2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var test = this.serviceLocator.GetLevelService().GetCurrentModule();
+        Debug.Log(test);
+
+
         uIManager = gameObject.AddComponent<UIManager>();
 
 
@@ -142,18 +152,6 @@ public class TextHandlerLevel2 : MonoBehaviour
         string text = "Welkom terug in het theater, leuk dat je er weer bent!";
         largeText.text = text;
 
-        uIManager.setLargeText("poep");
-        uIManager.setImageTexture(image_unlock);
-
-        //voiceController.StartSpeaking(text);
-        //if (currentEnTextLayout != enTextLayout.FullText)
-        //{
-        //    SwitchLayout(enTextLayout.FullText);
-        //}
-        //if (timeRemaining > 5)
-        //{
-        //    Step0_1();
-        //}
     }
 
     private void Step0_1()

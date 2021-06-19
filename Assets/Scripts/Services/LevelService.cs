@@ -51,7 +51,7 @@ public class LevelService : ScriptableObject
     }
 
 
-    LevelModule GetCurrentModule()
+    public LevelModule GetCurrentModule()
     {
         return currentLevelModule;
     }

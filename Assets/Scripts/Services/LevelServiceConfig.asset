@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: ba207a95c2bda48a4be554286075f63c, type: 2}
   solverMethod: 2
+  levelStorage: /savedata
