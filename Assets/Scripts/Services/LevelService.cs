@@ -17,22 +17,32 @@ public class LevelService : ScriptableObject
     [SerializeField]
     string levelStorage;
 
+    LevelModule currentLevelModule;
+
+
     public int CurrentLevel
     {
         get
         {
-            int level = FileStorage.GetStoredData<int>(levelStorage);
-            if (level == null) level = 1;
+            int level = 1;
+
+            try
+            {
+                level = FileStorage.GetStoredData<int>(levelStorage);
+            }
+            catch (System.IO.FileNotFoundException exception)
+            {
+                // Level not stored, so it must be 1
+            }
+
             return level;
         }
 
-        set
+        private set
         {
             FileStorage.StoreData<int>(levelStorage, value);
         }
     }
-
-    LevelModule currentLevelModule;
 
     /// <summary>
     /// Time the performance will begin and the game must have ended
@@ -49,7 +59,6 @@ public class LevelService : ScriptableObject
             this.startTime = value;
         }
     }
-
 
     LevelModule GetCurrentModule()
     {
@@ -75,8 +84,6 @@ public class LevelService : ScriptableObject
 
     public LevelModule GoToNextModule()
     {
-
-
         // Run AI to get next module
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
