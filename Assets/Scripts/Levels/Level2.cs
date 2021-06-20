@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,16 @@ public class Level2 : MonoBehaviour
 
     [SerializeField]
     private ServiceLocator serviceLocator;
+    //[SerializeField]
+    //private ChoiceController choiceController;
 
     private AudioService audioService;
     private LevelService levelService;
     // Start is called before the first frame update
+
+    private Action<string> handleQuestionSelectedCallback;
+
+
     void Start()
     {
         audioService = serviceLocator.GetAudioService();
@@ -21,28 +28,74 @@ public class Level2 : MonoBehaviour
         play();
     }
 
-    private void play() {
+    private void play()
+    {
         LevelModule currentLevelModule = levelService.GoToNextModule();
 
-        List<AudioFragment> audioFragments = currentLevelModule.GetAudioFragments();
+        if (currentLevelModule == null)
+        {
+            // Maybe do something?
+            return;
+        }
+
+        Action onDone = () =>
+        {
+            play();
+        };
+
+        switch (currentLevelModule.GetLevelModuleType())
+        {
+            case LevelModule.Type.QUIZ:
+                handleQuestionModule(currentLevelModule, onDone);
+                break;
+            case LevelModule.Type.AUDIO:
+                handleAudioLevelModuel(currentLevelModule, onDone);
+                break;
+        }
+    }
+
+    private void handleAudioLevelModuel(LevelModule levelModule, Action onDone)
+    {
+        List<AudioFragment> audioFragments = levelModule.GetAudioFragments();
 
         List<AudioClip> audioClips = audioFragments.ConvertAll(audioFragments => audioFragments.GetAudioClip());
 
         audioService.PlayAudio(audioClips, (currentIndex) => {
-
             uIManager.setLargeText(audioFragments[currentIndex].GetText());
-            uIManager.setImageTexture(audioFragments[currentIndex].GetTexture());
 
-        }, () =>
-        {
-            if (currentLevelModule != null)
+            if (audioFragments[currentIndex].GetTexture() != null)
             {
-                play();
+                uIManager.setImageTexture(audioFragments[currentIndex].GetTexture());
             }
-            else 
-            {
-                return;
-            }
-        });
+        }, onDone);
+    }
+
+    private void handleQuestionModule(LevelModule levelModule, Action onDone)
+    {
+        // update ui shwo question and possible answers
+        string question = levelModule.GetQuestion();
+        var answers = levelModule.GetAnswers();
+
+        uIManager.ShowQuestion(question, answers.ConvertAll((answr) => answr.value));
+
+        // set callback
+        handleQuestionSelectedCallback = (string value) =>
+         {
+             // Check if answer is correct
+             LevelModule.Answer? foundAnswer = answers.Find((answer) => answer.value == value);
+             bool isCorrectlyAnswred = foundAnswer?.isValidAnswer ?? false;
+
+             // Update ui properly
+             uIManager.ShowAnswer(isCorrectlyAnswred);
+
+             if (isCorrectlyAnswred)
+             {
+                 onDone();
+             }             
+        };
+    }
+
+    public void handleQuestionSelected(string value) {
+        handleQuestionSelectedCallback(value);
     }
 }

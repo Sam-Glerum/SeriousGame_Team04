@@ -33,18 +33,28 @@ public class LevelModule
     Type type;
 
     [Serializable]
-    public struct Answers
+    public struct Answer
     {
-        public string answer;
-        public bool validAnswer;
+        public string value;
+        public bool isValidAnswer;
     }
 
     [SerializeField]
-    [ConditionalField("type", false, Type.QUIZ)] public Answers answers; 
+    [ConditionalField("type", false, Type.QUIZ)] private List<Answer> answers;
     [SerializeField]
-    [ConditionalField("type", false, Type.QUIZ)] public string question;
+    [ConditionalField("type", false, Type.QUIZ)] private string question;
     [SerializeField]
     [ConditionalField("type", false, Type.QUIZ)] public AudioClip questionExplanation;
+
+    public List<Answer> GetAnswers()
+    {
+        return answers;
+    }
+
+    public string GetQuestion()
+    {
+        return question;
+    }
 
     public Type GetLevelModuleType()
     {

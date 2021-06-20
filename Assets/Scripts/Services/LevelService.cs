@@ -24,7 +24,7 @@ public class LevelService : ScriptableObject
     {
         get
         {
-            int level = 1;
+            int level = 0;
 
             try
             {
@@ -86,6 +86,8 @@ public class LevelService : ScriptableObject
 
     public LevelModule GoToNextModule()
     {
+        // TODO REMOVE
+        FileStorage.StoreData<int>(levelStorage, 2);
 
         var x = GetLeftModules();
         int availableTime = 1000;
@@ -98,14 +100,14 @@ public class LevelService : ScriptableObject
                 x
             );
 
-        // Update currentLevelModule
-        currentLevelModule = modules[0];
-
         // If level completed
-        if (currentLevelModule == null)
+        if (modules.Count == 0)
         {
             // Increment level
-            CurrentLevel = CurrentLevel + 1;
+            CurrentLevel++;
+        }
+        else {
+            currentLevelModule = modules[0];
         }
 
         return currentLevelModule;
