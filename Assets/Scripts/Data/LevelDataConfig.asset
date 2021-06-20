@@ -16,49 +16,71 @@ MonoBehaviour:
   - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
         text: sadadsa
+        texture: {fileID: 0}
       duration: 1
       type: 0
     longVersion:
       audioFragments:
-      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
         text: asdasd
+        texture: {fileID: 0}
       duration: 2
       type: 0
   levelTwo:
   - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioSource: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
-        text: Dag vriendjes en vriendinnetjes
-      duration: 1
-      type: 2
-    longVersion:
-      audioFragments:
-      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
-        text: asdasd
-      duration: 2
-      type: 2
-  - isRequired: 1
-    shortVersion:
-      audioFragments:
-      - audioSource: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
-        text: Dag vriendjes en vriendinnetjes
+      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: Welkom terug in het theater, leuk dat je er weer bent!
+        texture: {fileID: 8900000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
       duration: 1
       type: 0
     longVersion:
       audioFragments:
-      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
-        text: asdasd
+      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: Welkom terug in het theater, leuk dat je er weer bent!
+        texture: {fileID: 8900000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      duration: 2
+      type: 0
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: Wat is de geheime code, 200, 10 of 850?
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 1
+      type: 0
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: Wat is de geheime code, 200, 10 of 850?
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 2
+      type: 0
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 0}
+        text: quiz
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 1
+      type: 1
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: Hallo2x
+        texture: {fileID: 0}
       duration: 2
       type: 0
   levelThree:
   - isRequired: 0
     shortVersion:
       audioFragments:
-      - audioSource: {fileID: 0}
+      - audioClip: {fileID: 0}
         text: 
+        texture: {fileID: 0}
       duration: 0
       type: 0
     longVersion:

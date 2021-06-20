@@ -4,44 +4,45 @@ using UnityEngine;
 
 public class Level2 : MonoBehaviour
 {
+    [SerializeField]
+    private UIManager uIManager;
 
     [SerializeField]
     private ServiceLocator serviceLocator;
 
+    private AudioService audioService;
+    private LevelService levelService;
     // Start is called before the first frame update
     void Start()
     {
+        audioService = serviceLocator.GetAudioService();
+        levelService =serviceLocator.GetLevelService();
 
-        LevelService levelService = this.serviceLocator.GetLevelService();
-            
-        var x = System.DateTime.Now;
-
-        levelService.StartTime = x;
-        
-
-        //Debug.Log(currentLevelModule.GetLevelModuleType());
-        //Debug.Log(currentLevelModule.GetDuration());
-        //Debug.Log(currentLevelModule.GetAudioFragments());
-        Debug.Log(this.serviceLocator.GetLevelService().CurrentLevel);
-
-        LevelModule z = levelService.GoToNextModule();
-
-
-        //List<AudioFragment> audioFragments = currentLevelModule.GetAudioFragments();
-        //Debug.Log(audioFragments.Count + " XXX ");
-
-        //Debug.Log(currentLevelModule);
-
-        //if (currentLevelModule == null) Debug.Log("JA");
-
-
-
-
+        play();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void play() {
+        LevelModule currentLevelModule = levelService.GoToNextModule();
+
+        List<AudioFragment> audioFragments = currentLevelModule.GetAudioFragments();
+
+        List<AudioClip> audioClips = audioFragments.ConvertAll(audioFragments => audioFragments.GetAudioClip());
+
+        audioService.PlayAudio(audioClips, (currentIndex) => {
+
+            uIManager.setLargeText(audioFragments[currentIndex].GetText());
+            uIManager.setImageTexture(audioFragments[currentIndex].GetTexture());
+
+        }, () =>
+        {
+            if (currentLevelModule != null)
+            {
+                play();
+            }
+            else 
+            {
+                return;
+            }
+        });
     }
 }
