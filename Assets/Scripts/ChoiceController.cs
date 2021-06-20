@@ -7,11 +7,9 @@ using UnityEngine.UI;
 public class ChoiceController : MonoBehaviour
 {
     //Responsible for listening to voice activity
+    private VoiceService voiceService;
     [SerializeField]
-    private VoiceController voiceController;
-
-    AudioSource audioSource;
-
+    private ServiceLocator serviceLocator;
     [SerializeField]
     private AudioClip quizIntro;
 
@@ -22,7 +20,6 @@ public class ChoiceController : MonoBehaviour
     [SerializeField]
     private Button QuestionC;
     [SerializeField]
-    private enum TextLayout { ThreeQuestions, WrongAnswer, RightAnswer };
     [SerializeField]
     private Answer rightAnswer;
 
@@ -36,26 +33,22 @@ public class ChoiceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        voiceService = serviceLocator.GetVoiceService();
         currentTextLayout = TextLayout.ThreeQuestions;
-        StartQuiz();
-
-        SwitchLayout(TextLayout.ThreeQuestions);
-
+        InitializeListeners();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(currentTextLayout.Equals(TextLayout.ThreeQuestions))
-        //{
-        //    answer = voiceController.VOICETEXT;
-        //    if (answer.Equals(voiceController.VOICETEXT))
-        //    {
-        //        CheckAnswerUsingVoice();
-        //    }
-        //}
-
-
+        if(currentTextLayout.Equals(TextLayout.ThreeQuestions))
+        {
+            answer = voiceService.VOICETEXT;
+            if (answer.Equals(voiceService.VOICETEXT))
+            {
+                CheckAnswerUsingVoice();
+            }
+        }
 
         if (currentTextLayout.Equals(TextLayout.WrongAnswer))
         {
@@ -74,7 +67,7 @@ public class ChoiceController : MonoBehaviour
         }
     }
 
-    private void StartQuiz()
+    private void InitializeListeners()
     {
         QuestionA.onClick.AddListener(delegate () { CheckAnswer(0); });
         QuestionB.onClick.AddListener(delegate () { CheckAnswer(1); });
@@ -111,7 +104,7 @@ public class ChoiceController : MonoBehaviour
     }
 
 
-    private void SwitchLayout(TextLayout text)
+    public void SwitchLayout(TextLayout text)
     {
         switch (text)
         {
@@ -122,12 +115,12 @@ public class ChoiceController : MonoBehaviour
                 break;
             case TextLayout.RightAnswer:
                 GetChildWithName(gameObject, "ThreeQuestions").SetActive(false);
-                GetChildWithName(gameObject, "RightAnswer").SetActive(true);
+                GetChildWithName(gameObject, "FullText").SetActive(true);
                 currentTextLayout = TextLayout.RightAnswer;
                 break;
             case TextLayout.WrongAnswer:
                 GetChildWithName(gameObject, "ThreeQuestions").SetActive(false);
-                GetChildWithName(gameObject, "WrongAnswer").SetActive(true);
+                GetChildWithName(gameObject, "FullText").SetActive(true);
                 timerIsRunning = true;
                 timeRemaining = 5;
                 currentTextLayout = TextLayout.WrongAnswer;

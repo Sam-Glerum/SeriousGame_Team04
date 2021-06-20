@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEditor;
+using MyBox;
+using System;
 
 [System.Serializable]
-public class LevelModule
+[CustomPropertyDrawer(typeof(ConditionalFieldAttribute))]
+public class LevelModule 
 {
     public enum Type
     {
@@ -27,6 +31,20 @@ public class LevelModule
 
     [SerializeField]
     Type type;
+
+    [Serializable]
+    public struct Answers
+    {
+        public string answer;
+        public bool validAnswer;
+    }
+
+    [SerializeField]
+    [ConditionalField("type", false, Type.QUIZ)] public Answers answers; 
+    [SerializeField]
+    [ConditionalField("type", false, Type.QUIZ)] public string question;
+    [SerializeField]
+    [ConditionalField("type", false, Type.QUIZ)] public AudioClip questionExplanation;
 
     public Type GetLevelModuleType()
     {

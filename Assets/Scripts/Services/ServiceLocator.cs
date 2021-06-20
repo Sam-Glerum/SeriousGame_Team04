@@ -7,8 +7,10 @@ using UnityEngine;
 public class ServiceLocator : ScriptableObject
 {
     [SerializeField]
-    GameObject audioServicePrefab;
+    GameObject audioServicePrefab, voiceServicePrefab;
+
     AudioService audioService;
+    VoiceService voiceService;
 
     [SerializeField]
     LevelService levelService;
@@ -24,6 +26,11 @@ public class ServiceLocator : ScriptableObject
         return levelService;
     }
 
+    public VoiceService GetVoiceService()
+    {
+        voiceService = InstantiateIfNull<VoiceService>(voiceService, voiceServicePrefab);
+        return voiceService;
+    }
     private T InstantiateIfNull<T>(T component, GameObject prefab)
     {
         if (component == null)

@@ -24,7 +24,7 @@ public class LevelService : ScriptableObject
     {
         get
         {
-            int level = 2;
+            int level = 1;
 
             try
             {
@@ -80,13 +80,6 @@ public class LevelService : ScriptableObject
               (moduleData.GetLongVersion() == currentLevelModule);
         }) + 1;
 
-        Debug.Log("hier");
-        Debug.Log(GetAvaiableTimeInSeconds());
-
-        Debug.Log(currentLevelModule);
-        Debug.Log(currentLevelModules[0].GetShortVersion());
-        Debug.Log(currentIndex);
-        Debug.Log(currentLevelModules.Count);
 
         return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - currentIndex);
     }

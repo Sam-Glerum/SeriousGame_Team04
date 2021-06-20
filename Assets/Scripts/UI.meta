@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Audio/SoundEffects.meta
+guid: 7a2e5573e6e25b84fa2f3ec7bb8ccf1b
+=======
 guid: e16f0d3087483914a97dff6ddd700a85
+>>>>>>> origin/level2a:Assets/Scripts/UI.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
