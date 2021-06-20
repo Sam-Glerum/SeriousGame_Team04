@@ -18,26 +18,54 @@ MonoBehaviour:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 4d285813cae427d4a9af26d495ef7df8, type: 3}
         text: weetje1
+        texture: {fileID: 0}
       duration: 15
       type: 0
     longVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
         text: feesie
+        texture: {fileID: 0}
       duration: 10
       type: 0
   - isRequired: 1
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
-        text: weetje2
+        text: Vis fabriek
+        texture: {fileID: 0}
       duration: 12
-      type: 0
+      type: 1
     longVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
         text: weetje2
+        texture: {fileID: 0}
       duration: 12
+      type: 1
+  levelTwo:
+  - isRequired: 0
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+        text: dsa
+        texture: {fileID: 0}
+      duration: 0
+      type: 1
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: dsada
+        texture: {fileID: 0}
+      duration: 22
+      type: 1
+  - isRequired: 0
+    shortVersion:
+      audioFragments: []
+      duration: 0
       type: 0
-  levelTwo: []
+    longVersion:
+      audioFragments: []
+      duration: 0
+      type: 0
   levelThree: []

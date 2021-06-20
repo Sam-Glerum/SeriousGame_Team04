@@ -7,7 +7,12 @@ public class AudioFragment
 {
     public AudioClip audioClip;
     public string text;
+    public Texture texture;
 
+    public Texture GetTexture()
+    {
+        return texture;
+    }
     public AudioClip GetAudioClip()
     {
         return audioClip;

@@ -29,30 +29,17 @@ public class AudioService : MonoBehaviour
             var audioClip = audioClips[i];
 
             // Play audioClip
-            audio.Play();
             audio.clip = audioClip;
+            audio.Play();
+           
 
             // Notify listeners
             if (onCurrentAudioClipChanged != null) onCurrentAudioClipChanged(i);
             _onCurrentAudioClipChanged.Invoke(audioClip);
 
             // Wait until audioSource finished playing clip
-            yield return new WaitForSeconds(audio.clip.length); 
+            yield return new WaitForSeconds(audio.clip.length);
         }
-
-        //foreach (AudioClip audioClip in audioClips)
-        //{
-        //    // Play audioClip
-        //    audio.Play();
-        //    audio.clip = audioClip;
-
-        //    // Notify listeners
-        //    if (onCurrentAudioClipChanged != null) onCurrentAudioClipChanged(audioClip);
-        //    _onCurrentAudioClipChanged.Invoke(audioClip);
-
-        //    // Wait until audioSource finished playing clip
-        //    yield return new WaitForSeconds(audio.clip.length);
-        //}
 
         // Notify done when played all audioClips
         if (onDone != null) onDone();

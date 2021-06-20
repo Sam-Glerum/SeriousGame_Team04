@@ -7,8 +7,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
 
-    public void setLargeText(string text)
-    {
+    public void setLargeText(string text) {
 
         TMP_Text largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>(); ;
 
@@ -17,8 +16,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("Error: LargeText instance is null!");
             return;
         }
-        else
-        {
+        else {
             largeText.text = text;
         }
 
