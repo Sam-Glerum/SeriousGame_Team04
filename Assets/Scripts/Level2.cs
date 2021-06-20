@@ -11,16 +11,30 @@ public class Level2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LevelModule currentLevelModule = this.serviceLocator.GetLevelService().GetCurrentModule();
-        Debug.Log(currentLevelModule);
 
-        if (currentLevelModule == null) Debug.Log("JA");
+        LevelService levelService = this.serviceLocator.GetLevelService();
+            
+        var x = System.DateTime.Now;
 
-        Debug.Log(currentLevelModule.GetLevelModuleType());
-        Debug.Log(currentLevelModule.GetDuration());
-        Debug.Log(currentLevelModule.GetAudioFragments());
+        levelService.StartTime = x;
+        
 
+        //Debug.Log(currentLevelModule.GetLevelModuleType());
+        //Debug.Log(currentLevelModule.GetDuration());
+        //Debug.Log(currentLevelModule.GetAudioFragments());
         Debug.Log(this.serviceLocator.GetLevelService().CurrentLevel);
+
+        LevelModule z = levelService.GoToNextModule();
+
+
+        //List<AudioFragment> audioFragments = currentLevelModule.GetAudioFragments();
+        //Debug.Log(audioFragments.Count + " XXX ");
+
+        //Debug.Log(currentLevelModule);
+
+        //if (currentLevelModule == null) Debug.Log("JA");
+
+
 
 
     }

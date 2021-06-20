@@ -352,7 +352,9 @@ static class Extensions
 
         new List<LevelModule> { module.GetShortVersion(), module.GetLongVersion() }.ForEach((_module) =>
         {
-            new Node(parent.totalDuration, parent.depth, parent.path, _module);
+            if (module != null) {
+                children.Add(new Node(parent.totalDuration, parent.depth, parent.path, _module));
+            }
         });
 
         return children;

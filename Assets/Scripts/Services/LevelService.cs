@@ -17,22 +17,32 @@ public class LevelService : ScriptableObject
     [SerializeField]
     string levelStorage;
 
+    LevelModule currentLevelModule;
+
+
     public int CurrentLevel
     {
         get
         {
-            int level = FileStorage.GetStoredData<int>(levelStorage);
-            if (level == null) level = 1;
+            int level = 1;
+
+            try
+            {
+                level = FileStorage.GetStoredData<int>(levelStorage);
+            }
+            catch (System.IO.FileNotFoundException exception)
+            {
+                // Level not stored, so it must be 1
+            }
+
             return level;
         }
 
-        set
+        private set
         {
             FileStorage.StoreData<int>(levelStorage, value);
         }
     }
-
-    LevelModule currentLevelModule;
 
     /// <summary>
     /// Time the performance will begin and the game must have ended
@@ -50,7 +60,6 @@ public class LevelService : ScriptableObject
         }
     }
 
-
     public LevelModule GetCurrentModule()
     {
         return currentLevelModule;
@@ -64,25 +73,38 @@ public class LevelService : ScriptableObject
     private List<LevelModuleData> GetLeftModules()
     {
         List<LevelModuleData> currentLevelModules = levelData.getLevel(CurrentLevel);
+
         int currentIndex = currentLevelModules.FindIndex((moduleData) =>
         {
             return (moduleData.GetShortVersion() == currentLevelModule) ||
               (moduleData.GetLongVersion() == currentLevelModule);
         });
 
-        return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - 1 - currentIndex);
+        if (currentIndex == -1) currentIndex = 0;
+
+        Debug.Log("hier");
+        Debug.Log(GetAvaiableTimeInSeconds());
+
+        Debug.Log(currentLevelModule);
+        Debug.Log(currentLevelModules[0].GetShortVersion());
+        Debug.Log(currentIndex);
+        Debug.Log(currentLevelModules.Count);
+
+        return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count);
     }
 
     public LevelModule GoToNextModule()
     {
 
+        var x = GetLeftModules();
+        int availableTime = 1000;
 
         // Run AI to get next module
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
             .solve(
-                GetAvaiableTimeInSeconds(),
-                GetLeftModules()
+                availableTime,
+                x
             );
 
         // Update currentLevelModule

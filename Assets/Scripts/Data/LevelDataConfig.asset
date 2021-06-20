@@ -12,6 +12,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3aae68c913474353971a1b2e9a05efd, type: 3}
   m_Name: LevelDataConfig
   m_EditorClassIdentifier: 
-  levelOne: []
-  levelTwo: []
-  levelThree: []
+  levelOne:
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: sadadsa
+      duration: 1
+      type: 0
+    longVersion:
+      audioFragments:
+      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: asdasd
+      duration: 2
+      type: 0
+  levelTwo:
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioSource: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: Dag vriendjes en vriendinnetjes
+      duration: 1
+      type: 2
+    longVersion:
+      audioFragments:
+      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: asdasd
+      duration: 2
+      type: 2
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioSource: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: Dag vriendjes en vriendinnetjes
+      duration: 1
+      type: 0
+    longVersion:
+      audioFragments:
+      - audioSource: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: asdasd
+      duration: 2
+      type: 0
+  levelThree:
+  - isRequired: 0
+    shortVersion:
+      audioFragments:
+      - audioSource: {fileID: 0}
+        text: 
+      duration: 0
+      type: 0
+    longVersion:
+      audioFragments: []
+      duration: 0
+      type: 0
