@@ -20,6 +20,7 @@ public class ChoiceController : MonoBehaviour
     [SerializeField]
     private Button QuestionC;
     [SerializeField]
+    public enum TextLayout { ThreeQuestions, WrongAnswer, RightAnswer };
     [SerializeField]
     private Answer rightAnswer;
 
@@ -30,7 +31,6 @@ public class ChoiceController : MonoBehaviour
     protected bool timerIsRunning = false;
     private float timeRemaining = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         voiceService = serviceLocator.GetVoiceService();
@@ -38,10 +38,9 @@ public class ChoiceController : MonoBehaviour
         InitializeListeners();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(currentTextLayout.Equals(TextLayout.ThreeQuestions))
+        if (currentTextLayout.Equals(TextLayout.ThreeQuestions))
         {
             answer = voiceService.VOICETEXT;
             if (answer.Equals(voiceService.VOICETEXT))
