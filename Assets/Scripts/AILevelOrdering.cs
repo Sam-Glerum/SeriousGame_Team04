@@ -283,7 +283,7 @@ class Node : BaseNode
 
     public int Index { get; set; }
 
-    public int depth { get; }
+    public int depth { get; private set; }
 
     public BaseNode parent { get; set; }
     public List<BaseNode> children { get; private set; }
@@ -352,7 +352,10 @@ static class Extensions
 
         new List<LevelModule> { module.GetShortVersion(), module.GetLongVersion() }.ForEach((_module) =>
         {
-            new Node(parent.totalDuration, parent.depth, parent.path, _module);
+            if (_module != null)
+            {
+                children.Add(new Node(parent.totalDuration, parent.depth + 1, parent.path, _module));
+            }
         });
 
         return children;

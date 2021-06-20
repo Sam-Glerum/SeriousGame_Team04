@@ -78,8 +78,9 @@ public class LevelService : ScriptableObject
             return (moduleData.GetShortVersion() == currentLevelModule) ||
               (moduleData.GetLongVersion() == currentLevelModule);
         });
+        if (currentIndex < 0) currentIndex = 0;
 
-        return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - 1 - currentIndex);
+        return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - currentIndex);
     }
 
     public LevelModule GoToNextModule()
