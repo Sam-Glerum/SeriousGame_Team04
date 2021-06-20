@@ -9,33 +9,36 @@ using UnityEngine.UI;
 public class AudioService : MonoBehaviour
 {
     [SerializeField]
-    UnityEvent<AudioSource> _onCurrentAudioFragementChanged;
+    UnityEvent<AudioClip> _onCurrentAudioClipChanged;
 
     /// <summary>
-    /// Plays muliple audioSources after each other, calls onCurrentAudioFragementChanged for each audioSource,
+    /// Plays muliple audioClips after each other, calls onCurrentAudioClipChanged for each audioClip,
     /// when done the onDone callback is called.
     /// </summary>
-    public void PlayAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged = null, Action onDone = null)
+    public void PlayAudio(List<AudioClip> audioClips, Action<AudioClip> onCurrentAudioClipChanged = null, Action onDone = null)
     {
-        StartCoroutine(playAudio(audioSources, onCurrentAudioFragementChanged, onDone));
+        StartCoroutine(playAudio(audioClips, onCurrentAudioClipChanged, onDone));
     }
 
-    private IEnumerator playAudio(List<AudioSource> audioSources, Action<AudioSource> onCurrentAudioFragementChanged, Action onDone)
+    private IEnumerator playAudio(List<AudioClip> audioClips, Action<AudioClip> onCurrentAudioClipChanged, Action onDone)
     {
-        foreach (AudioSource audioSource in audioSources)
+        AudioSource audio = GetComponent<AudioSource>();
+
+        foreach (AudioClip audioClip in audioClips)
         {
-            // Play audioSource
-            audioSource.Play();
+            // Play audioClip
+            audio.Play();
+            audio.clip = audioClip;
 
             // Notify listeners
-            if (onCurrentAudioFragementChanged != null) onCurrentAudioFragementChanged(audioSource);
-            _onCurrentAudioFragementChanged.Invoke(audioSource);
+            if (onCurrentAudioClipChanged != null) onCurrentAudioClipChanged(audioClip);
+            _onCurrentAudioClipChanged.Invoke(audioClip);
 
-            // Wait until audioSource stopped playing
-            yield return new WaitWhile(() => audioSource.isPlaying);
+            // Wait until audioSource finished playing clip
+            yield return new WaitForSeconds(audio.clip.length);
         }
 
-        // Notify done when played all audioSources
+        // Notify done when played all audioClips
         if (onDone != null) onDone();
     }
 }
