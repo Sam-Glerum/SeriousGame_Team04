@@ -5,12 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class AudioFragment
 {
-    public AudioClip audioSource;
+    public AudioClip audioClip;
     public string text;
 
-    public AudioClip GetAudioSource()
+    public AudioClip GetAudioClip()
     {
-        return audioSource;
+        return audioClip;
     }
 
     public string GetText()
@@ -20,6 +20,6 @@ public class AudioFragment
 
     public double GetDuration()
     {
-        return audioSource.length;
+        return audioClip.length;
     }
 }

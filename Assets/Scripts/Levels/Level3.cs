@@ -5,37 +5,47 @@ using UnityEngine;
 public class Level3 : MonoBehaviour
 {
     [SerializeField]
+    private UIManager uiManager;
+    [SerializeField]
     private ServiceLocator serviceLocator;
     private VoiceService voiceService;
-    private AudioSource audioSource;
+    private AudioService audioService;
+    private LevelService level;
+    private LevelModule currentLevelModule;
+
+    private bool timerIsRunning;
+    private double timeRemaining;
+    private double testTime;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        LevelService level = serviceLocator.GetLevelService();
-        int currentLevel = serviceLocator.GetLevelService().CurrentLevel;
-        double time = serviceLocator.GetLevelService().GetAvaiableTimeInSeconds();
+        voiceService = serviceLocator.GetVoiceService();
+        audioService = serviceLocator.GetAudioService();
+        level = serviceLocator.GetLevelService();
 
-        Debug.Log(currentLevel);
-        Debug.Log(time);
+        currentLevelModule = level.GoToNextModule();
 
-        Debug.Log(level.currentLevelModule.GetDuration());
+        List<AudioFragment> audioFragment = currentLevelModule.GetAudioFragments();
 
-        level.GoToNextModule();
+        List <AudioClip> audioClips = audioFragment.ConvertAll(clips => clips.GetAudioClip());
 
-        foreach (var fragments in level.currentLevelModule.GetAudioFragments())
-        {
-            Debug.Log("Play fragment");
-            audioSource.PlayOneShot(fragments.audioSource);
+        
+        Debug.Log(level.CurrentLevel);
 
-        }
-        //AudioFragment audioFragment = level.currentLevelModule.GetAudioFragments()[0];
-        //audioSource.PlayOneShot(audioFragment.audioSource);
-
+        audioService.PlayAudio(audioClips, (currentIndex) => {
+            uiManager.setLargeText(audioFragment[currentIndex].GetText());
+        }, () => { 
+            // When all done;
+        });
     }
 
     void Update()
     {
-        
+
+    }
+
+    private void PlayStep()
+    {
+
     }
 }

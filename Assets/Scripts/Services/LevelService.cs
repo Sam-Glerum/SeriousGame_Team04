@@ -75,11 +75,12 @@ public class LevelService : ScriptableObject
         List<LevelModuleData> currentLevelModules = levelData.getLevel(CurrentLevel);
         int currentIndex = currentLevelModules.FindIndex((moduleData) =>
         {
-            return (moduleData.GetShortVersion() != currentLevelModule) ||
-              (moduleData.GetLongVersion() != currentLevelModule);
+            return (moduleData.GetShortVersion() == currentLevelModule) ||
+              (moduleData.GetLongVersion() == currentLevelModule);
         });
+        if (currentIndex < 0) currentIndex = 0;
 
-        return currentLevelModules.GetRange(0, currentLevelModules.Count - 1);
+        return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - currentIndex);
     }
 
     public LevelModule GoToNextModule()
@@ -88,7 +89,7 @@ public class LevelService : ScriptableObject
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
             .solve(
-                10,
+                GetAvaiableTimeInSeconds(),
                 GetLeftModules()
             );
 
