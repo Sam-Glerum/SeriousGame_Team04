@@ -5,7 +5,7 @@ using TextSpeech;
 using UnityEngine.UI;
 using UnityEngine.Android;
 using TMPro;
-public class VoiceController : MonoBehaviour
+public class VoiceService : MonoBehaviour
 {
     const string LANG_CODE = "nl_NL";
 

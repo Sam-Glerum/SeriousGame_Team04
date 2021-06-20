@@ -18,8 +18,6 @@ public class TextHandler : MonoBehaviour
     [SerializeField]
     private Button button0, button1, button2;
     [SerializeField]
-    private VoiceController voiceController;
-    [SerializeField]
     private PhoneRotation phoneRotation;
     [SerializeField]
     private AudioClip shakeSound, secretMessage, Level3_1, Level3_2, Level3_3, Level3_4;
@@ -27,6 +25,9 @@ public class TextHandler : MonoBehaviour
     private Texture Albert, Cassette;
     [SerializeField]
     private GameObject Image;
+    [SerializeField]
+    private ServiceLocator serviceLocator;
+    private VoiceService voiceService;
     AudioSource audioSource;
     RawImage rawImage;
 
@@ -42,6 +43,8 @@ public class TextHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(serviceLocator.GetVoiceService());
+        voiceService = serviceLocator.GetVoiceService();
         rawImage = Image.transform.GetComponent<RawImage>();
         audioSource = GetComponent<AudioSource>();
 
@@ -57,7 +60,7 @@ public class TextHandler : MonoBehaviour
             CheckStep2();
         }
 
-        answer = voiceController.VOICETEXT;
+        answer = voiceService.VOICETEXT;
 
         if (CurrentStep == 6 && !step6Done)
         {
@@ -201,7 +204,7 @@ public class TextHandler : MonoBehaviour
         audioSource.Stop();
         string text = ($"Dat is correct het is natuurlijk van hout.");
         largeText.text = text;
-        voiceController.StartSpeaking(text);
+        voiceService.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
@@ -220,7 +223,7 @@ public class TextHandler : MonoBehaviour
         timerIsRunning = true;
         string text = "Toen was het bandje afgelopen.";
         largeText.text = text;
-        voiceController.StartSpeaking(text);
+        voiceService.StartSpeaking(text);
         if (currentEnTextLayout != enTextLayout.FullText)
         {
             SwitchLayout(enTextLayout.FullText);
@@ -231,7 +234,7 @@ public class TextHandler : MonoBehaviour
     {
         string text = "Waar is nu de overige informatie van Albert? ";
         largeText.text = text;
-        voiceController.StartSpeaking(text);
+        voiceService.StartSpeaking(text);
         if (currentEnTextLayout != enTextLayout.FullText)
         {
             SwitchLayout(enTextLayout.FullText);
@@ -243,7 +246,7 @@ public class TextHandler : MonoBehaviour
         timeRemaining = 10;
         string text = "Er komen zo 3 opties. A, B en C. Klik op het scherm en zeg luidop A, B of C om antwoord te geven.";
         largeText.text = text;
-        voiceController.StartSpeaking(text);
+        voiceService.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
@@ -304,21 +307,21 @@ public class TextHandler : MonoBehaviour
 
         IEnumerator CoRoutineQ1()
         {
-            voiceController.StartSpeaking(q1);
+            voiceService.StartSpeaking(q1);
             yield return new WaitForSeconds(5);
             StartCoroutine(CoRoutineQ2());
 
         }
         IEnumerator CoRoutineQ2()
         {
-            voiceController.StartSpeaking(q2);
+            voiceService.StartSpeaking(q2);
             yield return new WaitForSeconds(5);
             StartCoroutine(CoRoutineQ3());
 
         }
         IEnumerator CoRoutineQ3()
         {
-            voiceController.StartSpeaking(q3);
+            voiceService.StartSpeaking(q3);
             yield return new WaitForSeconds(5);
         }
     }
@@ -328,7 +331,7 @@ public class TextHandler : MonoBehaviour
         StopAllCoroutines();
         string text = ($"Laten we proberen om de B zijde te beluisteren!");
         largeText.text = text;
-        voiceController.StartSpeaking(text);
+        voiceService.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.FullText)
         {
@@ -352,7 +355,7 @@ public class TextHandler : MonoBehaviour
         answer.Remove(9);
         string text = ($"Niet correct het is niet {answer}!");
         largeText.text = text;
-        voiceController.StartSpeaking(text);
+        voiceService.StartSpeaking(text);
 
         if (currentEnTextLayout != enTextLayout.WrongAnswer)
         {
@@ -378,7 +381,7 @@ public class TextHandler : MonoBehaviour
         timerIsRunning = false;
         string text = "Schud het scherm! om de cassette te verwisselen";
         largeText.text = text;
-        voiceController.StartSpeaking(text);
+        voiceService.StartSpeaking(text);
 
 
         if (currentEnTextLayout != enTextLayout.FullText)

@@ -17,22 +17,32 @@ public class LevelService : ScriptableObject
     [SerializeField]
     string levelStorage;
 
+    public LevelModule currentLevelModule;
+
+
     public int CurrentLevel
     {
         get
         {
-            int level = FileStorage.GetStoredData<int>(levelStorage);
-            if (level == null) level = 1;
+            int level = 1;
+
+            try
+            {
+                level = FileStorage.GetStoredData<int>(levelStorage);
+            }
+            catch (System.IO.FileNotFoundException exception)
+            {
+                // Level not stored, so it must be 1
+            }
+
             return level;
         }
 
-        set
+        private set
         {
             FileStorage.StoreData<int>(levelStorage, value);
         }
     }
-
-    LevelModule currentLevelModule;
 
     /// <summary>
     /// Time the performance will begin and the game must have ended
@@ -50,8 +60,7 @@ public class LevelService : ScriptableObject
         }
     }
 
-
-    LevelModule GetCurrentModule()
+    public LevelModule GetCurrentModule()
     {
         return currentLevelModule;
     }
@@ -66,22 +75,20 @@ public class LevelService : ScriptableObject
         List<LevelModuleData> currentLevelModules = levelData.getLevel(CurrentLevel);
         int currentIndex = currentLevelModules.FindIndex((moduleData) =>
         {
-            return (moduleData.GetShortVersion() == currentLevelModule) ||
-              (moduleData.GetLongVersion() == currentLevelModule);
+            return (moduleData.GetShortVersion() != currentLevelModule) ||
+              (moduleData.GetLongVersion() != currentLevelModule);
         });
 
-        return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - 1 - currentIndex);
+        return currentLevelModules.GetRange(0, currentLevelModules.Count - 1);
     }
 
     public LevelModule GoToNextModule()
     {
-
-
         // Run AI to get next module
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
             .solve(
-                GetAvaiableTimeInSeconds(),
+                10,
                 GetLeftModules()
             );
 
