@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform questionPrefab;
     [SerializeField]
-    private Transform questionChildPrefab;
+    private TMP_Text questionChildPrefab;
 
     private TextLayout currentTextLayout;
 
@@ -32,10 +32,12 @@ public class UIManager : MonoBehaviour
     public void ShowQuestion(string question, List<string> answers)
     {
         Transform questionObject = Instantiate(questionPrefab, new Vector2(250,112), Quaternion.identity);
+        var questionText = questionObject.transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>();
+        questionText.text = question; 
         foreach (var answer in answers)
         {
-            Debug.Log(answer);
-            Transform answerObject = Instantiate(questionChildPrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity, questionObject);
+            TMP_Text answerObject = Instantiate(questionChildPrefab, transform.position, transform.rotation, questionObject) as TMP_Text;
+            answerObject.text = answer;
         }
         //GetChildWithName(gameObject, currentTextLayout.ToString()).SetActive(false);
         //GetChildWithName(gameObject, "ThreeQuestions").SetActive(true);
