@@ -16,7 +16,7 @@ public class Level2 : MonoBehaviour
     void Start()
     {
         audioService = serviceLocator.GetAudioService();
-        levelService =serviceLocator.GetLevelService();
+        levelService = serviceLocator.GetLevelService();
 
         play();
     }
