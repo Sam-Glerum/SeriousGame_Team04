@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class SwipeOverReader : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SwipeOverDescriptionReader : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField]
+    string description;
+
     [SerializeField]
     ServiceLocator serviceLocator;
     VoiceService voiceService;
+
     bool isReading;
 
     private void Start()
@@ -18,13 +22,10 @@ public class SwipeOverReader : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        var textObject = this.gameObject.GetComponent<TMP_Text>();
-
-        if (textObject != null)
+        if (description != null)
         {
-            string readableText = textObject.text;
             voiceService.StopSpeaking();
-            voiceService.StartSpeaking(readableText);
+            voiceService.StartSpeaking(description);
             isReading = true;
         }
     }
