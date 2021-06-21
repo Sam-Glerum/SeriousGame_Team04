@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2721e47cfcd8d454f9ae51b8030df99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serviceLocator: {fileID: 0}
+  serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
   addidtionalText: knop
 --- !u!1 &8356886694099492403
 GameObject:

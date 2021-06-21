@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uIManager: {fileID: 0}
-  serviceLocator: {fileID: 0}
+  serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
+  wrongSoundEffect: {fileID: 8300000, guid: 804e20b6d3733a64eaee11aa574d7e9c, type: 3}
