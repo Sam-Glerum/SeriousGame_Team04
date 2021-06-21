@@ -87,8 +87,7 @@ public class LevelService : ScriptableObject
 
     public LevelModule GoToNextModule()
     {
-        // TODO REMOVE
-        FileStorage.StoreData<int>(levelStorage, 3);
+        FileStorage.StoreData<int>(levelStorage, CurrentLevel);
 
         var x = GetLeftModules();
 

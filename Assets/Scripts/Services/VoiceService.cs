@@ -14,8 +14,6 @@ public class VoiceService : ScriptableObject
 
     public string VOICETEXT;
 
-    
-
     private void Start()
     {
         Setup(LANG_CODE);

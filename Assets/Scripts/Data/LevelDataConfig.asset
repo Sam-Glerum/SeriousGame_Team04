@@ -17,7 +17,7 @@ MonoBehaviour:
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
-        text: 'In mfijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
+        text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
           Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
           had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
           moet je daar is gaan zoeken... '
@@ -30,7 +30,7 @@ MonoBehaviour:
     longVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
-        text: 'In mfijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
+        text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
           Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
           had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
           moet je daar is gaan zoeken... '
@@ -257,6 +257,16 @@ MonoBehaviour:
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
+        text: 
+        texture: {fileID: 0}
+      duration: 0
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
         text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
           Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
           had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
@@ -267,21 +277,11 @@ MonoBehaviour:
       answers: []
       question: 
       questionExplanation: {fileID: 0}
-    longVersion:
-      audioFragments:
-      - audioClip: {fileID: 8300000, guid: ce03fc5f4d8ed9b4f877d38c2f9c75f2, type: 3}
-        text: stt
-        texture: {fileID: 0}
-      duration: 0
-      type: 0
-      answers: []
-      question: 
-      questionExplanation: {fileID: 0}
   - isRequired: 1
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: update
+        text: 'Oh jaa het gaat over de fles '
         texture: {fileID: 0}
       duration: 0
       type: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
     longVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: stt
+        text: 'Oh jaa het gaat over de fles '
         texture: {fileID: 0}
       duration: 0
       type: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
-        text: Van welk materiaals is kurk gemaakt?
+        text: Van welk materiaal is kurk gemaakt?
         texture: {fileID: 0}
       duration: 0
       type: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
     longVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
-        text: Van welk materiaals is kurk gemaakt?
+        text: Van welk materiaal is kurk gemaakt?
         texture: {fileID: 0}
       duration: 0
       type: 0
@@ -357,13 +357,9 @@ MonoBehaviour:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
         text: 'Oke, misschien heb ik je een beetje misleid. Dat is wat goochelaars
-          doen. Die goocheltruc ga ik je niet zo vertellen. Dan verliest hij meteen
+          doen. Die goocheltruc ga ik je niet zo vertellen.  Dan verliest hij meteen
           alle magie. Goocheltrucs moet je zelf ontcijferen of je moet ze aanschouwen
-          en alle vragen die ze oproepen omarmen. Want die vragen die het oproept
-          zijn eigenlijk echt leuk, ze houden de spanning erin. Want als je van alles
-          zou weten hoe het werkt en overal de antwoorden op weet, dan is er echt
-          niks leuks meer aan. Als je het antwoord niet weet, dan is er zo ontzettend
-          veel mogelijk.   '
+          en alle vragen die ze oproepen omarmen.   '
         texture: {fileID: 2800000, guid: 3645dbe19cc21cc428e0da98b43455cc, type: 3}
       duration: 0
       type: 0
@@ -372,9 +368,12 @@ MonoBehaviour:
       questionExplanation: {fileID: 0}
     longVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: stt
-        texture: {fileID: 0}
+      - audioClip: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
+        text: 'Oke, misschien heb ik je een beetje misleid. Dat is wat goochelaars
+          doen. Die goocheltruc ga ik je niet zo vertellen.  Dan verliest hij meteen
+          alle magie. Goocheltrucs moet je zelf ontcijferen of je moet ze aanschouwen
+          en alle vragen die ze oproepen omarmen.   '
+        texture: {fileID: 2800000, guid: 3645dbe19cc21cc428e0da98b43455cc, type: 3}
       duration: 0
       type: 0
       answers: []
