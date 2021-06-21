@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class Level2 : MonoBehaviour
 {
@@ -13,28 +14,35 @@ public class Level2 : MonoBehaviour
 
     [SerializeField]
     private AudioClip wrongSoundEffect;
-    //[SerializeField]
-    //private ChoiceController choiceController;
 
+    [SerializeField]
+    private SceneLoader sceneLoader;
 
     private AudioService audioService;
     private LevelService levelService;
     // Start is called before the first frame update
-
-    private Action<string> handleQuestionSelectedCallback;
-
+    private Task endLevelWhenTimeIsUp;
 
     void Start()
     {
         audioService = serviceLocator.GetAudioService();
         levelService = serviceLocator.GetLevelService();
 
+        startLevel();
+    }
+
+    private void startLevel()
+    {
+        uIManager.StartedLevel(levelService.GetAvaiableTimeInSeconds);
+        // TODO: Test
+        endLevelWhenTimeIsUp = Task.Delay((int)levelService.GetAvaiableTimeInSeconds() * 1000).ContinueWith(t => levelEnded());
         play();
     }
 
-    private void Update()
+    private void levelEnded()
     {
-        uIManager.ShowCountDownTimer(levelService.GetAvaiableTimeInSeconds);
+        uIManager.StoppedLevel();
+        sceneLoader.LoadHomeScreen();
     }
 
     private void play()
@@ -43,7 +51,7 @@ public class Level2 : MonoBehaviour
 
         if (currentLevelModule == null)
         {
-            // Maybe do something?
+            levelEnded();
             return;
         }
 
@@ -69,7 +77,8 @@ public class Level2 : MonoBehaviour
 
         List<AudioClip> audioClips = audioFragments.ConvertAll(audioFragments => audioFragments.GetAudioClip());
 
-        audioService.PlayAudio(audioClips, (currentIndex) => {
+        audioService.PlayAudio(audioClips, (currentIndex) =>
+        {
             uIManager.setLargeText(audioFragments[currentIndex].GetText());
 
             if (audioFragments[currentIndex].GetTexture() != null)
@@ -85,32 +94,29 @@ public class Level2 : MonoBehaviour
         string question = levelModule.GetQuestion();
         var answers = levelModule.GetAnswers();
 
-        uIManager.ShowQuestion(question, answers.ConvertAll((answr) => answr.value));
+        uIManager.ShowQuestion(
+            question,
+          answers: answers.ConvertAll((answr) => answr.value),
+          onClick: (string value) =>
+           {
+               // Check if answer is correct
+               LevelModule.Answer? foundAnswer = answers.Find((answer) => answer.value == value);
+               bool isCorrectlyAnswred = foundAnswer?.isValidAnswer ?? false;
 
-        // set callback
-        handleQuestionSelectedCallback = (string value) =>
-         {
-             // Check if answer is correct
-             LevelModule.Answer? foundAnswer = answers.Find((answer) => answer.value == value);
-             bool isCorrectlyAnswred = foundAnswer?.isValidAnswer ?? false;
+               // Update ui properly
+               uIManager.ShowAnswer(isCorrectlyAnswred);
 
-             // Update ui properly
-             uIManager.ShowAnswer(isCorrectlyAnswred);
-
-             if (isCorrectlyAnswred)
-             {
-                 onDone();
-             }
-             else
-             {
-                 List<AudioClip> soundEffect = new List<AudioClip>();
-                 soundEffect.Add(wrongSoundEffect);
-                 audioService.PlayAudio( soundEffect);
-             }
-        };
-    }
-
-    public void handleQuestionSelected(string value) {
-        handleQuestionSelectedCallback(value);
+               if (isCorrectlyAnswred)
+               {
+                   onDone();
+               }
+               else
+               {
+                   List<AudioClip> soundEffect = new List<AudioClip>();
+                   soundEffect.Add(wrongSoundEffect);
+                   audioService.PlayAudio(soundEffect);
+               }
+           }
+            );
     }
 }

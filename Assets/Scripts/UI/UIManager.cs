@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Timers;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,9 +17,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform buttonChildPrefab;
     [SerializeField]
-    private Level2 level2;
+    private Timer? timer;
 
-    
     TMP_Text countDownTimer;
     Transform questionObject;
     TMP_Text largeText;
@@ -39,7 +39,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void setLargeText(string text) {
+    public void setLargeText(string text)
+    {
 
 
         if (largeText == null)
@@ -48,36 +49,56 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        else {
+        else
+        {
             largeText.text = text;
         }
 
     }
 
-    public void ShowCountDownTimer(Func<double> getRemainingTime)
+    public void StartedLevel(Func<double> getRemainingTime)
     {
-        double seconds = getRemainingTime(); //or whatever time you have
-        string remainingtime = string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60);
-        countDownTimer.text = remainingtime;
+        timer = new Timer(1000);
+        timer.Elapsed += (System.Object source, ElapsedEventArgs e) =>
+        {
+            // Dit wordt wel aangeroepen maar is niet zichtbaar?
+            double seconds = getRemainingTime();
+            string remainingtime = string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60);
+            countDownTimer.text = remainingtime;
+        };
+        timer.Start();
     }
 
-    public void ShowQuestion(string question, List<string> answers)
+    public void StoppedLevel()
+    {
+        timer = null;
+        countDownTimer.text = "";
+    }
+
+    public void ShowQuestion(string question, List<string> answers, Action<string> onClick)
     {
         largeText.text = "";
 
-        questionObject = Instantiate(questionPrefab, new Vector2(250,112), Quaternion.identity);
+        questionObject = Instantiate(questionPrefab, new Vector2(250, 112), Quaternion.identity);
         var questionText = questionObject.transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>();
-        questionText.text = question; 
+        questionText.text = question;
 
         foreach (var answer in answers)
         {
             Transform answerButton = Instantiate(buttonChildPrefab, transform.position, transform.rotation, questionObject);
             answerButton.Find("ButtonText").GetComponent<TMP_Text>().text = answer;
 
-            answerButton.GetComponent<Button>().onClick.AddListener(() => { doubleClickTimer ++; });
+            answerButton.GetComponent<Button>().onClick.AddListener(() => { doubleClickTimer++; });
 
             {
-                answerButton.GetComponent<Button>().onClick.AddListener(() => { if (doubleClickTimer >= 1.1) { SelectedAnswer = answerButton.Find("ButtonText").GetComponent<TMP_Text>(); level2.handleQuestionSelected(answer); } });
+                answerButton.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if (doubleClickTimer >= 1.1)
+                    {
+                        SelectedAnswer = answerButton.Find("ButtonText").GetComponent<TMP_Text>();
+                        onClick(answer);
+                    }
+                });
             }
         }
     }
