@@ -24,7 +24,7 @@ public class LevelService : ScriptableObject
     {
         get
         {
-            int level = 1;
+            int level = 0;
 
             try
             {
@@ -60,7 +60,7 @@ public class LevelService : ScriptableObject
         }
     }
 
-    LevelModule GetCurrentModule()
+    public LevelModule GetCurrentModule()
     {
         return currentLevelModule;
     }
@@ -73,34 +73,41 @@ public class LevelService : ScriptableObject
     private List<LevelModuleData> GetLeftModules()
     {
         List<LevelModuleData> currentLevelModules = levelData.getLevel(CurrentLevel);
+
         int currentIndex = currentLevelModules.FindIndex((moduleData) =>
         {
             return (moduleData.GetShortVersion() == currentLevelModule) ||
               (moduleData.GetLongVersion() == currentLevelModule);
-        });
-        if (currentIndex < 0) currentIndex = 0;
+        }) + 1;
+
 
         return currentLevelModules.GetRange(currentIndex, currentLevelModules.Count - currentIndex);
     }
 
     public LevelModule GoToNextModule()
     {
+        // TODO REMOVE
+        FileStorage.StoreData<int>(levelStorage, 2);
+
+        var x = GetLeftModules();
+        int availableTime = 1000;
+
         // Run AI to get next module
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
             .solve(
-                GetAvaiableTimeInSeconds(),
-                GetLeftModules()
+                availableTime,
+                x
             );
 
-        // Update currentLevelModule
-        currentLevelModule = modules[0];
-
         // If level completed
-        if (currentLevelModule == null)
+        if (modules.Count == 0)
         {
             // Increment level
-            CurrentLevel = CurrentLevel + 1;
+            CurrentLevel++;
+        }
+        else {
+            currentLevelModule = modules[0];
         }
 
         return currentLevelModule;

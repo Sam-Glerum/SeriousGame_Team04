@@ -7,28 +7,12 @@ using static Player;
 
 public class StartMenu : MonoBehaviour
 {
+    private SceneLoader sceneLoader;
     public Player player = new Player();
 
-    private void LoadLevel(int levelIndex)
+    private void Start()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + levelIndex);
-    }
-
-    private PlayerData LoadPlayerData(Player player)
-    {
-        return (PlayerData)SaveSystem.LoadData(player);
-    }
-
-    private bool SaveFileExists()
-    {
-        if (SaveSystem.LoadData(player) != null)
-        {
-            return true;
-        } 
-        else
-        {
-            return false;
-        }
+        sceneLoader = new SceneLoader();
     }
 
     // ======================
@@ -47,16 +31,12 @@ public class StartMenu : MonoBehaviour
     public void StartGame()
     {
         // Checks if a save file exists
-        if (SaveFileExists() && LoadPlayerData(player).currentLevel > 0)
-        {
-            LoadLevel(LoadPlayerData(player).currentLevel);
-        }
-        else
+        if (!sceneLoader.SaveFileExists(player))
         {
             // Creates a new save file if it does not yet exist
             SaveSystem.SaveData(player);
-            // Loads the first level in the build settings list (after the menu scene)
-            LoadLevel(1);
         }
+
+        SceneManager.LoadScene("StartTimeInputScreen");
     }
 }

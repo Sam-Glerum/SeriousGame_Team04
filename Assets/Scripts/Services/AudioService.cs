@@ -15,23 +15,26 @@ public class AudioService : MonoBehaviour
     /// Plays muliple audioClips after each other, calls onCurrentAudioClipChanged for each audioClip,
     /// when done the onDone callback is called.
     /// </summary>
-    public void PlayAudio(List<AudioClip> audioClips, Action<AudioClip> onCurrentAudioClipChanged = null, Action onDone = null)
+    public void PlayAudio(List<AudioClip> audioClips, Action<int> onCurrentAudioClipChanged = null, Action onDone = null)
     {
         StartCoroutine(playAudio(audioClips, onCurrentAudioClipChanged, onDone));
     }
 
-    private IEnumerator playAudio(List<AudioClip> audioClips, Action<AudioClip> onCurrentAudioClipChanged, Action onDone)
+    private IEnumerator playAudio(List<AudioClip> audioClips, Action<int> onCurrentAudioClipChanged, Action onDone)
     {
         AudioSource audio = GetComponent<AudioSource>();
 
-        foreach (AudioClip audioClip in audioClips)
+        for (int i = 0; i < audioClips.Count; i++)
         {
+            var audioClip = audioClips[i];
+
             // Play audioClip
-            audio.Play();
             audio.clip = audioClip;
+            audio.Play();
+           
 
             // Notify listeners
-            if (onCurrentAudioClipChanged != null) onCurrentAudioClipChanged(audioClip);
+            if (onCurrentAudioClipChanged != null) onCurrentAudioClipChanged(i);
             _onCurrentAudioClipChanged.Invoke(audioClip);
 
             // Wait until audioSource finished playing clip

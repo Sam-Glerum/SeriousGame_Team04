@@ -9,14 +9,16 @@ public static class SaveSystem
 
     private static string fileExtension = ".bin";
 
-    public static void SaveData(object obj) {
+    public static void SaveData(object obj)
+    {
 
         string filename = null;
         IData data = null;
 
-        if(obj.GetType() == typeof(Player)){
+        if (obj.GetType() == typeof(Player))
+        {
             filename = "player";
-            data = new PlayerData( (Player) obj);
+            data = new PlayerData((Player)obj);
         }
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -30,7 +32,8 @@ public static class SaveSystem
         stream.Close();
     }
 
-    public static IData LoadData(object obj) {
+    public static IData LoadData(object obj)
+    {
 
         string filename = null;
         IData data = null;
@@ -53,7 +56,8 @@ public static class SaveSystem
 
             return data;
         }
-        else {
+        else
+        {
             Debug.LogError("Save file not found: " + filePath);
             return null;
         }

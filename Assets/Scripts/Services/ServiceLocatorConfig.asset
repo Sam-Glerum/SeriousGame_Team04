@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdbf02dbb5a34f8ab7f3483588dab16, type: 3}
   m_Name: ServiceLocatorConfig
   m_EditorClassIdentifier: 
-  audioServicePrefab: {fileID: 0}
+  audioServicePrefab: {fileID: 8539182967242995791, guid: 3b686c12c5bef4128b670f5c860015a9, type: 3}
+  voiceServicePrefab: {fileID: 2067171449604979455, guid: ab50e00d30e0e5649b571b9aaa3cf4af, type: 3}
   levelService: {fileID: 11400000, guid: 0b6441fab622c49a4a618a99554f70f5, type: 2}

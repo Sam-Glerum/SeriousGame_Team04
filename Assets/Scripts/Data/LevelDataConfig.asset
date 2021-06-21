@@ -13,4 +13,118 @@ MonoBehaviour:
   m_Name: LevelDataConfig
   m_EditorClassIdentifier: 
   levelOne:
-  - {fileID: 0}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 4d285813cae427d4a9af26d495ef7df8, type: 3}
+        text: weetje1
+        texture: {fileID: 0}
+      duration: 15
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+        text: feesie
+        texture: {fileID: 0}
+      duration: 10
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
+        text: Vis fabriek
+        texture: {fileID: 0}
+      duration: 12
+      type: 1
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+        text: weetje2
+        texture: {fileID: 0}
+      duration: 12
+      type: 1
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+  levelTwo:
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: dsa
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 0
+      type: 1
+      answers: []
+      question: asdsadsa
+      questionExplanation: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: dsada
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 0
+      type: 1
+      answers:
+      - answer: sdfsdf
+        validAnswer: 1
+      - answer: sdfsdxxxsf
+        validAnswer: 0
+      - answer: sdfsdxsadasdasdxxsf
+        validAnswer: 0
+      question: asdsadsa
+      questionExplanation: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+  - isRequired: 0
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
+        text: jhnk
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 0
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 4d285813cae427d4a9af26d495ef7df8, type: 3}
+        text: dd
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 0
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+  - isRequired: 0
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+        text: sadasd
+        texture: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      duration: 0
+      type: 1
+      answers:
+      - answer: 
+        validAnswer: 0
+      question: asdasdsa
+      questionExplanation: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+        text: sasad
+        texture: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      duration: 0
+      type: 1
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+  levelThree: []
