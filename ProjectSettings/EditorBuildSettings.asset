@@ -9,8 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Homescreen.unity
     guid: 3dbcb630b247ca445bce52e9da93f033
   - enabled: 1
-    path: Assets/Scenes/Level_2.unity
-    guid: 9b595ce706ce81044a898a0dc47ef238
     path: Assets/Scenes/StartTimeInputScreen.unity
     guid: 4af874a22560eb94290eed13ea272bc3
   - enabled: 1

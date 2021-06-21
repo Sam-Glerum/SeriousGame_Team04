@@ -256,36 +256,6 @@ MonoBehaviour:
   - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioClip: {fileID: 0}
-        text: update
-        texture: {fileID: 0}
-      duration: 0
-      type: 1
-      answers:
-      - value: Glas
-        isValidAnswer: 0
-      - value: Hout
-        isValidAnswer: 1
-      - value: Steen
-        isValidAnswer: 0
-      question: Van welk materiaal is kurk gemaakt?
-      questionExplanation: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
-    longVersion:
-      audioFragments: []
-      duration: 0
-      type: 1
-      answers:
-      - value: Glas
-        isValidAnswer: 0
-      - value: Hout
-        isValidAnswer: 1
-      - value: Steen
-        isValidAnswer: 0
-      question: Van welk materiaal is kurk gemaakt?
-      questionExplanation: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
-  - isRequired: 1
-    shortVersion:
-      audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
         text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
           Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
@@ -328,6 +298,60 @@ MonoBehaviour:
       answers: []
       question: 
       questionExplanation: {fileID: 0}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+        text: Van welk materiaals is kurk gemaakt?
+        texture: {fileID: 0}
+      duration: 0
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+        text: Van welk materiaals is kurk gemaakt?
+        texture: {fileID: 0}
+      duration: 0
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+        text: update
+        texture: {fileID: 0}
+      duration: 0
+      type: 1
+      answers:
+      - value: Glas
+        isValidAnswer: 0
+      - value: Hout
+        isValidAnswer: 1
+      - value: Steen
+        isValidAnswer: 0
+      question: Van welk materiaal is kurk gemaakt?
+      questionExplanation: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+        text: 
+        texture: {fileID: 0}
+      duration: 0
+      type: 1
+      answers:
+      - value: Glas
+        isValidAnswer: 0
+      - value: Hout
+        isValidAnswer: 1
+      - value: Steen
+        isValidAnswer: 0
+      question: Van welk materiaal is kurk gemaakt?
+      questionExplanation: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
   - isRequired: 1
     shortVersion:
       audioFragments:

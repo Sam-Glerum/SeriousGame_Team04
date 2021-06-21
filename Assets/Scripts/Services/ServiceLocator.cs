@@ -8,12 +8,12 @@ public class ServiceLocator : ScriptableObject
 {
     [SerializeField]
     GameObject audioServicePrefab, voiceServicePrefab;
-
-    AudioService audioService;
-    VoiceService voiceService;
-
     [SerializeField]
     LevelService levelService;
+    [SerializeField]
+    VoiceService voiceService;
+
+    AudioService audioService;
 
     public AudioService GetAudioService()
     {
@@ -28,7 +28,6 @@ public class ServiceLocator : ScriptableObject
 
     public VoiceService GetVoiceService()
     {
-        voiceService = InstantiateIfNull<VoiceService>(voiceService, voiceServicePrefab);
         return voiceService;
     }
 

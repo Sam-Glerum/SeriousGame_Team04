@@ -15,3 +15,4 @@ MonoBehaviour:
   audioServicePrefab: {fileID: 8539182967242995791, guid: 3b686c12c5bef4128b670f5c860015a9, type: 3}
   voiceServicePrefab: {fileID: 2067171449604979455, guid: ab50e00d30e0e5649b571b9aaa3cf4af, type: 3}
   levelService: {fileID: 11400000, guid: 0b6441fab622c49a4a618a99554f70f5, type: 2}
+  voiceService: {fileID: 11400000, guid: dd4a09c3558e0f94f8b8dbc894e70a61, type: 2}

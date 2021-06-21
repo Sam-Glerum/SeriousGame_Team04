@@ -5,11 +5,16 @@ using TextSpeech;
 using UnityEngine.UI;
 using UnityEngine.Android;
 using TMPro;
-public class VoiceService : MonoBehaviour
+
+[System.Serializable]
+[CreateAssetMenu(fileName = "VoiceServiceConfig", menuName = "ScriptableObjects/VoiceService", order = 1)]
+public class VoiceService : ScriptableObject
 {
     const string LANG_CODE = "nl_NL";
 
     public string VOICETEXT;
+
+    
 
     private void Start()
     {
@@ -34,11 +39,13 @@ public class VoiceService : MonoBehaviour
 
     public void StartSpeaking(string message)
     {
+        Debug.Log("Startspeak");
         TextToSpeech.instance.StartSpeak(message);
     }
 
     public void StopSpeaking()
     {
+        Debug.Log("StopSpeak");
         TextToSpeech.instance.StopSpeak();
     }
 
