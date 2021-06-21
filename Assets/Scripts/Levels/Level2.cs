@@ -34,8 +34,8 @@ public class Level2 : MonoBehaviour
     private void startLevel()
     {
         uIManager.StartedLevel(levelService.GetAvaiableTimeInSeconds);
-        // TODO: Test
-        endLevelWhenTimeIsUp = Task.Delay((int)levelService.GetAvaiableTimeInSeconds() * 1000).ContinueWith(t => levelEnded());
+        int time = (int)levelService.GetAvaiableTimeInSeconds() * 1000;
+        endLevelWhenTimeIsUp = Task.Delay(time).ContinueWith(t => levelEnded());
         play();
     }
 

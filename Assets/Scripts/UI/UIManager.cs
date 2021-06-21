@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using System.Timers;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,9 +15,9 @@ public class UIManager : MonoBehaviour
     private TMP_Text questionChildPrefab;
     [SerializeField]
     private Transform buttonChildPrefab;
-    [SerializeField]
-    private Timer? timer;
+    private Func<string> getTimerText;
 
+    [SerializeField]
     TMP_Text countDownTimer;
     Transform questionObject;
     TMP_Text largeText;
@@ -26,23 +25,25 @@ public class UIManager : MonoBehaviour
 
     private TextLayout currentTextLayout;
     private float doubleClickTimer = 0;
+    // Func<string> getTimerText;
+
     private void Start()
     {
         countDownTimer = GameObject.Find("CountdownTimer").GetComponent<TMP_Text>();
         largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>();
     }
+
     void Update()
     {
         if (doubleClickTimer > 0)
         {
             doubleClickTimer -= Time.deltaTime;
         }
+        updateTimerText();
     }
 
     public void setLargeText(string text)
     {
-
-
         if (largeText == null)
         {
             Debug.Log("Error: LargeText instance is null!");
@@ -53,26 +54,27 @@ public class UIManager : MonoBehaviour
         {
             largeText.text = text;
         }
-
     }
 
     public void StartedLevel(Func<double> getRemainingTime)
     {
-        timer = new Timer(1000);
-        timer.Elapsed += (System.Object source, ElapsedEventArgs e) =>
+        Debug.Log("StartedLevel");
+        getTimerText = () =>
         {
-            // Dit wordt wel aangeroepen maar is niet zichtbaar?
             double seconds = getRemainingTime();
-            string remainingtime = string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60);
-            countDownTimer.text = remainingtime;
+            return string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60);
         };
-        timer.Start();
+    }
+
+    private void updateTimerText()
+    {
+        countDownTimer.text = getTimerText();
     }
 
     public void StoppedLevel()
     {
-        timer = null;
-        countDownTimer.text = "";
+        Debug.Log("StoppedLevel");
+        // getTimerText = () => "";
     }
 
     public void ShowQuestion(string question, List<string> answers, Action<string> onClick)

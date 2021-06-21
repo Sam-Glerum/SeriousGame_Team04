@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -434,7 +434,7 @@ MonoBehaviour:
   questionPrefab: {fileID: 7047697357725220685, guid: 0469e15dc9f0e254b9f914f8279478b3, type: 3}
   questionChildPrefab: {fileID: 4813286012556283568, guid: 723b397462d214941afc73ec018c164f, type: 3}
   buttonChildPrefab: {fileID: 3005989855475237486, guid: 3109a85a5ebaac14494ca9bb5e8c82e2, type: 3}
-  level2: {fileID: 1211486737}
+  countDownTimer: {fileID: 1212675076}
 --- !u!4 &405501425
 Transform:
   m_ObjectHideFlags: 0
@@ -1644,7 +1644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34, y: 848}
+  m_AnchoredPosition: {x: 17, y: 755}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212675076
@@ -2063,6 +2063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98436c2ede2113c4ca89fedee9149640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShowPopupAndroid: 1
 --- !u!4 &1595943385
 Transform:
   m_ObjectHideFlags: 0
