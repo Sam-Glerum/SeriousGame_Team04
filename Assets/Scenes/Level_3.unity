@@ -564,6 +564,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionPrefab: {fileID: 7047697357725220685, guid: 0469e15dc9f0e254b9f914f8279478b3, type: 3}
   questionChildPrefab: {fileID: 4813286012556283568, guid: 723b397462d214941afc73ec018c164f, type: 3}
+  buttonChildPrefab: {fileID: 3005989855475237486, guid: 3109a85a5ebaac14494ca9bb5e8c82e2, type: 3}
+  level2: {fileID: 1211486737}
 --- !u!4 &405501425
 Transform:
   m_ObjectHideFlags: 0
@@ -1741,6 +1743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uIManager: {fileID: 405501424}
   serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
+  wrongSoundEffect: {fileID: 8300000, guid: 804e20b6d3733a64eaee11aa574d7e9c, type: 3}
 --- !u!114 &1211486738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,9 +1756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84fcf3d5788d1b4cbf687ad5660b83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIManager: {fileID: 405501424}
-  serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
-  choiceController: {fileID: 1211486736}
 --- !u!114 &1211486739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1768,12 +1768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c632c9a71bcaf4882321fd4e4f3e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
-  quizIntro: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
-  QuestionA: {fileID: 627825452}
-  QuestionB: {fileID: 1316044803}
-  QuestionC: {fileID: 1094786511}
-  rightAnswer: 0
 --- !u!1 &1316044801
 GameObject:
   m_ObjectHideFlags: 0

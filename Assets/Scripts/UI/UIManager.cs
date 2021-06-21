@@ -12,12 +12,25 @@ public class UIManager : MonoBehaviour
     private Transform questionPrefab;
     [SerializeField]
     private TMP_Text questionChildPrefab;
+    [SerializeField]
+    private Transform buttonChildPrefab;
+    [SerializeField]
+    private Level2 level2;
+
+    Transform questionObject;
+    TMP_Text largeText;
+    TMP_Text SelectedAnswer;
 
     private TextLayout currentTextLayout;
 
+    private void Start()
+    {
+        largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>();
+
+    }
     public void setLargeText(string text) {
 
-        TMP_Text largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>(); ;
+
 
         if (largeText == null)
         {
@@ -31,22 +44,36 @@ public class UIManager : MonoBehaviour
 
     public void ShowQuestion(string question, List<string> answers)
     {
-        Transform questionObject = Instantiate(questionPrefab, new Vector2(250,112), Quaternion.identity);
+        largeText.text = "";
+
+        questionObject = Instantiate(questionPrefab, new Vector2(250,112), Quaternion.identity);
         var questionText = questionObject.transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>();
         questionText.text = question; 
+
         foreach (var answer in answers)
         {
-            TMP_Text answerObject = Instantiate(questionChildPrefab, transform.position, transform.rotation, questionObject) as TMP_Text;
-            answerObject.text = answer;
+            Transform answerButton = Instantiate(buttonChildPrefab, transform.position, transform.rotation, questionObject);
+            answerButton.GetComponent<Button>().onClick.AddListener(() => { SelectedAnswer = answerButton.Find("ButtonText").GetComponent<TMP_Text>(); level2.handleQuestionSelected(answer); });
+            answerButton.Find("ButtonText").GetComponent<TMP_Text>().text = answer; 
         }
-        //GetChildWithName(gameObject, currentTextLayout.ToString()).SetActive(false);
-        //GetChildWithName(gameObject, "ThreeQuestions").SetActive(true);
     }
 
     public void ShowAnswer(bool isRight)
     {
+        if (!isRight) SelectedAnswer.color = Color.red;
+        else
+        {
+            questionObject.transform.gameObject.SetActive(false);
+            StartCoroutine(DestroyIn5Seconds());
+            IEnumerator DestroyIn5Seconds()
+            {
+                yield return new WaitForSeconds(5);
 
+                //After we have waited 5 seconds 
+                //Destroy(questionObject);
 
+            }
+        }
     }
 
     private GameObject GetChildWithName(GameObject obj, string name)

@@ -6,8 +6,10 @@ using UnityEditor;
 using MyBox;
 using System;
 
+#if UNITY_EDITOR
 [System.Serializable]
 [CustomPropertyDrawer(typeof(ConditionalFieldAttribute))]
+#endif
 public class LevelModule 
 {
     public enum Type
