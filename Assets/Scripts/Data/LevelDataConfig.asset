@@ -17,7 +17,7 @@ MonoBehaviour:
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
-        text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
+        text: 'In mfijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
           Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
           had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
           moet je daar is gaan zoeken... '
@@ -30,7 +30,7 @@ MonoBehaviour:
     longVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
-        text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
+        text: 'In mfijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
           Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
           had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
           moet je daar is gaan zoeken... '
@@ -98,11 +98,14 @@ MonoBehaviour:
   - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
-        text: dsa
-        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
-      duration: 1
-      type: 1
+      - audioClip: {fileID: 8300000, guid: ce03fc5f4d8ed9b4f877d38c2f9c75f2, type: 3}
+        text: "Welkom terug in het theater! Leuk dat je er weer bent. Weet je nog
+          wat ik je de vorige keer heb beloofd? Je krijgt een drankje van me, ik
+          heb er bij de bar \xE9\xE9n voor je klaar gezet. Je kan de persoon achter
+          de bar vragen om een drankje van Albert en dan weten ze het wel!"
+        texture: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      duration: 0
+      type: 0
       answers:
       - value: Is this true?
         isValidAnswer: 1
@@ -112,11 +115,14 @@ MonoBehaviour:
       questionExplanation: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
     longVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
-        text: dsada
-        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
-      duration: 0
-      type: 1
+      - audioClip: {fileID: 8300000, guid: ce03fc5f4d8ed9b4f877d38c2f9c75f2, type: 3}
+        text: "Welkom terug in het theater! Leuk dat je er weer bent. Weet je nog
+          wat ik je de vorige keer heb beloofd? Je krijgt een drankje van me, ik
+          heb er bij de bar \xE9\xE9n voor je klaar gezet. Je kan de persoon achter
+          de bar vragen om een drankje van Albert en dan weten ze het wel!"
+        texture: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      duration: 1
+      type: 0
       answers:
       - value: Question1
         isValidAnswer: 0
@@ -126,11 +132,11 @@ MonoBehaviour:
         isValidAnswer: 1
       question: asdsadsa
       questionExplanation: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
-  - isRequired: 0
+  - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 85eb79c4857bc0b43839c2f24993f077, type: 3}
-        text: Welkom, Welkom!
+      - audioClip: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: ' Wat is de geheime code: 200, 10 of 850?'
         texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
       duration: 0
       type: 0
@@ -139,51 +145,145 @@ MonoBehaviour:
       questionExplanation: {fileID: 0}
     longVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 4d285813cae427d4a9af26d495ef7df8, type: 3}
-        text: dd
+      - audioClip: {fileID: 8300000, guid: 9db0b456b5c94ca4db331122584a8502, type: 3}
+        text: ' Wat is de geheime code: 200, 10 of 850?'
         texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
       duration: 0
       type: 0
       answers: []
       question: 
       questionExplanation: {fileID: 0}
-  - isRequired: 0
+  - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: sadasd
-        texture: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      - audioClip: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
+        text: Klik op de geheime code!
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
       duration: 0
       type: 1
       answers:
-      - value: Gert
+      - value: 200
+        isValidAnswer: 0
+      - value: 10
+        isValidAnswer: 0
+      - value: 850
         isValidAnswer: 1
-      - value: Bas
+      question: Klik op de geheime code!
+      questionExplanation: {fileID: 8300000, guid: f3b6356b6ccde304c9d1522621896d65, type: 3}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+        text: Klik op de geheime code!
+        texture: {fileID: 2800000, guid: 35e096963f70e5244ab4d1e20f8fbe05, type: 3}
+      duration: 0
+      type: 1
+      answers:
+      - value: 200
         isValidAnswer: 0
-      - value: Freek
+      - value: 10
         isValidAnswer: 0
+      - value: 850
+        isValidAnswer: 1
+      question: xxxx
+      questionExplanation: {fileID: 8300000, guid: 804e20b6d3733a64eaee11aa574d7e9c, type: 3}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 05752ae3a308dc2498a4d0c10c7c09d6, type: 3}
+        text: De code is gekraakt!
+        texture: {fileID: 2800000, guid: 3090943ebe0e2d541a3a73faaccb4fe9, type: 3}
+      duration: 0
+      type: 0
+      answers:
+      - value: 200
+        isValidAnswer: 0
+      - value: 10
+        isValidAnswer: 0
+      - value: 850
+        isValidAnswer: 1
       question: asdasdsa
-      questionExplanation: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+      questionExplanation: {fileID: 8300000, guid: f3b6356b6ccde304c9d1522621896d65, type: 3}
     longVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: sasad
+      - audioClip: {fileID: 8300000, guid: 05752ae3a308dc2498a4d0c10c7c09d6, type: 3}
+        text: De code is gekraakt!
+        texture: {fileID: 2800000, guid: 3090943ebe0e2d541a3a73faaccb4fe9, type: 3}
+      duration: 0
+      type: 0
+      answers:
+      - value: 200
+        isValidAnswer: 0
+      - value: 10
+        isValidAnswer: 0
+      - value: 850
+        isValidAnswer: 1
+      question: xxxx
+      questionExplanation: {fileID: 8300000, guid: 804e20b6d3733a64eaee11aa574d7e9c, type: 3}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 87349af1852f3cc4fa7e25028d0c7825, type: 3}
+        text: Gefeliciteerd, je hebt het level behaald!
         texture: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      duration: 0
+      type: 0
+      answers:
+      - value: 200
+        isValidAnswer: 0
+      - value: 10
+        isValidAnswer: 0
+      - value: 850
+        isValidAnswer: 1
+      question: asdasdsa
+      questionExplanation: {fileID: 8300000, guid: f3b6356b6ccde304c9d1522621896d65, type: 3}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 87349af1852f3cc4fa7e25028d0c7825, type: 3}
+        text: Gefeliciteerd, je hebt het level behaald!
+        texture: {fileID: 2800000, guid: fe7fe791999831d4cb16cd24b9495eec, type: 3}
+      duration: 0
+      type: 0
+      answers:
+      - value: 200
+        isValidAnswer: 0
+      - value: 10
+        isValidAnswer: 0
+      - value: 850
+        isValidAnswer: 1
+      question: xxxx
+      questionExplanation: {fileID: 8300000, guid: 804e20b6d3733a64eaee11aa574d7e9c, type: 3}
+  levelThree:
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 0}
+        text: update
+        texture: {fileID: 0}
       duration: 0
       type: 1
       answers:
-      - value: Gert
+      - value: Glas
         isValidAnswer: 0
-      - value: Jan
+      - value: Hout
         isValidAnswer: 1
-      - value: Freek
+      - value: Steen
         isValidAnswer: 0
-      - value: Bas
+      question: Van welk materiaal is kurk gemaakt?
+      questionExplanation: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+    longVersion:
+      audioFragments: []
+      duration: 0
+      type: 1
+      answers:
+      - value: Glas
         isValidAnswer: 0
-      question: 
-      questionExplanation: {fileID: 0}
-  levelThree:
-  - isRequired: 0
+      - value: Hout
+        isValidAnswer: 1
+      - value: Steen
+        isValidAnswer: 0
+      question: Van welk materiaal is kurk gemaakt?
+      questionExplanation: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
+  - isRequired: 1
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
@@ -198,17 +298,20 @@ MonoBehaviour:
       question: 
       questionExplanation: {fileID: 0}
     longVersion:
-      audioFragments: []
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: ce03fc5f4d8ed9b4f877d38c2f9c75f2, type: 3}
+        text: stt
+        texture: {fileID: 0}
       duration: 0
       type: 0
       answers: []
       question: 
       questionExplanation: {fileID: 0}
-  - isRequired: 0
+  - isRequired: 1
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: Yo yo je mattie Alberto B in da house
+        text: update
         texture: {fileID: 0}
       duration: 0
       type: 0
@@ -216,95 +319,38 @@ MonoBehaviour:
       question: 
       questionExplanation: {fileID: 0}
     longVersion:
-      audioFragments: []
-      duration: 12
-      type: 0
-      answers: []
-      question: 
-      questionExplanation: {fileID: 0}
-  - isRequired: 0
-    shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: Yo yo je mattie Alberto B in da house
+        text: stt
         texture: {fileID: 0}
-      duration: 12
-      type: 1
-      answers:
-      - value: Hout
-        isValidAnswer: 1
-      - value: Glas
-        isValidAnswer: 0
-      - value: Steen
-        isValidAnswer: 0
-      question: Van welk materiaal is kurk gemaakt?
-      questionExplanation: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
-    longVersion:
-      audioFragments: []
       duration: 0
       type: 0
       answers: []
       question: 
       questionExplanation: {fileID: 0}
-  - isRequired: 0
+  - isRequired: 1
     shortVersion:
       audioFragments:
       - audioClip: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
-        text: 'Oke, misschien heb ik je een beetje misleid. Maar hey, dat is wat
-          goochelaars doen. Die goocheltruc ga ik je niet zo vertellen. Dan verliest
-          hij meteen alle magie. Goocheltrucs moet je zelf ontcijferen of je moet
-          ze aanschouwen en alle vragen die ze oproepen omarmen. Want die vragen
-          die het oproept zijn eigenlijk echt leuk, ze houden de spanning erin. Want
-          als je van alles zou weten hoe het werkt en overal de antwoorden op weet,
-          dan is er echt niks leuks meer aan. Als je het antwoord niet weet, dan
-          is er zo ontzettend veel mogelijk. Dan is er ruimte voor fantasie en ruimte
-          voor het onmogelijke. '
+        text: 'Oke, misschien heb ik je een beetje misleid. Dat is wat goochelaars
+          doen. Die goocheltruc ga ik je niet zo vertellen. Dan verliest hij meteen
+          alle magie. Goocheltrucs moet je zelf ontcijferen of je moet ze aanschouwen
+          en alle vragen die ze oproepen omarmen. Want die vragen die het oproept
+          zijn eigenlijk echt leuk, ze houden de spanning erin. Want als je van alles
+          zou weten hoe het werkt en overal de antwoorden op weet, dan is er echt
+          niks leuks meer aan. Als je het antwoord niet weet, dan is er zo ontzettend
+          veel mogelijk.   '
         texture: {fileID: 2800000, guid: 3645dbe19cc21cc428e0da98b43455cc, type: 3}
-      duration: 0
-      type: 0
-      answers:
-      - value: Hout
-        isValidAnswer: 1
-      - value: Glas
-        isValidAnswer: 0
-      - value: Steen
-        isValidAnswer: 0
-      question: Van welk materiaal is kurk gemaakt?
-      questionExplanation: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
-    longVersion:
-      audioFragments: []
       duration: 0
       type: 0
       answers: []
       question: 
       questionExplanation: {fileID: 0}
-  - isRequired: 0
-    shortVersion:
-      audioFragments:
-      - audioClip: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
-        text: 'Oke, misschien heb ik je een beetje misleid. Maar hey, dat is wat
-          goochelaars doen. Die goocheltruc ga ik je niet zo vertellen. Dan verliest
-          hij meteen alle magie. Goocheltrucs moet je zelf ontcijferen of je moet
-          ze aanschouwen en alle vragen die ze oproepen omarmen. Want die vragen
-          die het oproept zijn eigenlijk echt leuk, ze houden de spanning erin. Want
-          als je van alles zou weten hoe het werkt en overal de antwoorden op weet,
-          dan is er echt niks leuks meer aan. Als je het antwoord niet weet, dan
-          is er zo ontzettend veel mogelijk. Dan is er ruimte voor fantasie en ruimte
-          voor het onmogelijke. '
-        texture: {fileID: 2800000, guid: 3645dbe19cc21cc428e0da98b43455cc, type: 3}
-      duration: 0
-      type: 0
-      answers:
-      - value: Hout
-        isValidAnswer: 1
-      - value: Glas
-        isValidAnswer: 0
-      - value: Steen
-        isValidAnswer: 0
-      question: Van welk materiaal is kurk gemaakt?
-      questionExplanation: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
     longVersion:
-      audioFragments: []
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
+        text: stt
+        texture: {fileID: 0}
       duration: 0
       type: 0
       answers: []

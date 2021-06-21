@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     TMP_Text countDownTimer;
+
+    Transform canvasButtons;
     Transform questionObject;
     TMP_Text largeText;
     TMP_Text SelectedAnswer;
@@ -26,6 +28,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        canvasButtons = GameObject.Find("CanvasButtons").transform;
         countDownTimer = GameObject.Find("CountdownTimer").GetComponent<TMP_Text>();
         largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>();
     }
@@ -78,13 +81,13 @@ public class UIManager : MonoBehaviour
     {
         largeText.text = "";
 
-        questionObject = Instantiate(questionPrefab, new Vector2(250, 112), Quaternion.identity);
+        questionObject = Instantiate(questionPrefab, new Vector2(500, 900), Quaternion.identity, canvasButtons);
         var questionText = questionObject.transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>();
         questionText.text = question;
 
         foreach (var answer in answers)
         {
-            Transform answerButton = Instantiate(buttonChildPrefab, transform.position, transform.rotation, questionObject);
+            Transform answerButton = Instantiate(buttonChildPrefab, new Vector2(0, 0), transform.rotation, questionObject);
             answerButton.Find("ButtonText").GetComponent<TMP_Text>().text = answer;
 
             answerButton.GetComponent<Button>().onClick.AddListener(() => { doubleClickTimer++; });

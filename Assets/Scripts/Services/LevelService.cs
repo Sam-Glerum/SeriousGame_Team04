@@ -91,13 +91,12 @@ public class LevelService : ScriptableObject
         FileStorage.StoreData<int>(levelStorage, 3);
 
         var x = GetLeftModules();
-        int availableTime = 1000;
 
         // Run AI to get next module
         List<LevelModule> modules = solverFactory
             .makeSolver(solverMethod)
             .solve(
-                availableTime,
+                GetAvaiableTimeInSeconds(),
                 x
             );
 
