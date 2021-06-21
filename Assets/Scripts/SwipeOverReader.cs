@@ -11,6 +11,9 @@ public class SwipeOverReader : MonoBehaviour, IPointerEnterHandler, IPointerExit
     VoiceService voiceService;
     bool isReading;
 
+    [SerializeField]
+    string addidtionalText;
+
     private void Start()
     {
         voiceService = serviceLocator.GetVoiceService();
@@ -22,7 +25,7 @@ public class SwipeOverReader : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         if (textObject != null)
         {
-            string readableText = textObject.text;
+            string readableText = textObject.text + " " + (addidtionalText ?? "");
             Handheld.Vibrate();
             voiceService.StopSpeaking();
             voiceService.StartSpeaking(readableText);
