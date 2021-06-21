@@ -14,8 +14,6 @@ public class Level2 : MonoBehaviour
 
     [SerializeField]
     private AudioClip wrongSoundEffect;
-
-    [SerializeField]
     private SceneLoader sceneLoader;
 
     private AudioService audioService;
@@ -25,6 +23,7 @@ public class Level2 : MonoBehaviour
 
     void Start()
     {
+        sceneLoader = new SceneLoader();
         audioService = serviceLocator.GetAudioService();
         levelService = serviceLocator.GetLevelService();
 
