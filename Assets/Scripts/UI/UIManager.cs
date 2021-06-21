@@ -12,8 +12,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform questionPrefab;
     [SerializeField]
-    private TMP_Text questionChildPrefab;
-    [SerializeField]
     private Transform buttonChildPrefab;
     private Func<string> getTimerText;
 
@@ -23,7 +21,6 @@ public class UIManager : MonoBehaviour
     TMP_Text largeText;
     TMP_Text SelectedAnswer;
 
-    private TextLayout currentTextLayout;
     private float doubleClickTimer = 0;
     // Func<string> getTimerText;
 

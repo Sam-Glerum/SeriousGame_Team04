@@ -22,7 +22,7 @@ MonoBehaviour:
           had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
           moet je daar is gaan zoeken... '
         texture: {fileID: 0}
-      duration: 15
+      duration: 0
       type: 0
       answers: []
       question: 
@@ -47,9 +47,15 @@ MonoBehaviour:
         text: Ohja Kurk
         texture: {fileID: 0}
       duration: 12
-      type: 0
-      answers: []
-      question: 
+      type: 1
+      answers:
+      - value: 
+        isValidAnswer: 1
+      - value: 
+        isValidAnswer: 0
+      - value: 
+        isValidAnswer: 0
+      question: Van wat is kurk gemaakt?
       questionExplanation: {fileID: 0}
     longVersion:
       audioFragments:
@@ -211,7 +217,7 @@ MonoBehaviour:
       questionExplanation: {fileID: 0}
     longVersion:
       audioFragments: []
-      duration: 0
+      duration: 12
       type: 0
       answers: []
       question: 
@@ -222,7 +228,7 @@ MonoBehaviour:
       - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
         text: Yo yo je mattie Alberto B in da house
         texture: {fileID: 0}
-      duration: 0
+      duration: 12
       type: 1
       answers:
       - value: Hout
@@ -287,7 +293,7 @@ MonoBehaviour:
           voor het onmogelijke. '
         texture: {fileID: 2800000, guid: 3645dbe19cc21cc428e0da98b43455cc, type: 3}
       duration: 0
-      type: 2
+      type: 0
       answers:
       - value: Hout
         isValidAnswer: 1
