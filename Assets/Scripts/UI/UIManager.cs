@@ -90,10 +90,10 @@ public class UIManager : MonoBehaviour
             StartCoroutine(DestroyIn5Seconds());
             IEnumerator DestroyIn5Seconds()
             {
-                yield return new WaitForSeconds(5);
+                yield return new WaitForSeconds(10);
 
                 //After we have waited 5 seconds 
-                //Destroy(questionObject);
+                Destroy(questionObject.gameObject);
 
             }
         }
