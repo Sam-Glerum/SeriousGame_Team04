@@ -15,7 +15,6 @@ public class ClickHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Down");
         DownEvent?.Invoke();
     }
 
@@ -23,7 +22,6 @@ public class ClickHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("Up");
         UpEvent?.Invoke();
     }
 }

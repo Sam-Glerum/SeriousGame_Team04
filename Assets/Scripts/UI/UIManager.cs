@@ -11,13 +11,34 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform questionPrefab;
     [SerializeField]
-    private Transform questionChildPrefab;
+    private TMP_Text questionChildPrefab;
+    [SerializeField]
+    private Transform buttonChildPrefab;
+    [SerializeField]
+    private Level2 level2;
+
+    Transform questionObject;
+    TMP_Text largeText;
+    TMP_Text SelectedAnswer;
 
     private TextLayout currentTextLayout;
+    private float doubleClickTimer = 0;
+    private void Start()
+    {
+        largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>();
+
+    }
+    void Update()
+    {
+        if (doubleClickTimer > 0)
+        {
+            doubleClickTimer -= Time.deltaTime;
+        }
+    }
 
     public void setLargeText(string text) {
 
-        TMP_Text largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>(); ;
+
 
         if (largeText == null)
         {
@@ -31,59 +52,50 @@ public class UIManager : MonoBehaviour
 
     public void ShowQuestion(string question, List<string> answers)
     {
-        Transform questionObject = Instantiate(questionPrefab, new Vector2(250,112), Quaternion.identity);
+        largeText.text = "";
+
+        questionObject = Instantiate(questionPrefab, new Vector2(250,112), Quaternion.identity);
+        var questionText = questionObject.transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>();
+        questionText.text = question; 
+
         foreach (var answer in answers)
         {
-            Debug.Log(answer);
-            Transform answerObject = Instantiate(questionChildPrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity, questionObject);
+            Transform answerButton = Instantiate(buttonChildPrefab, transform.position, transform.rotation, questionObject);
+            answerButton.Find("ButtonText").GetComponent<TMP_Text>().text = answer;
+
+            answerButton.GetComponent<Button>().onClick.AddListener(() => { doubleClickTimer ++; });
+
+            {
+                answerButton.GetComponent<Button>().onClick.AddListener(() => { if (doubleClickTimer >= 1.1) { SelectedAnswer = answerButton.Find("ButtonText").GetComponent<TMP_Text>(); level2.handleQuestionSelected(answer); } });
+            }
         }
-        //GetChildWithName(gameObject, currentTextLayout.ToString()).SetActive(false);
-        //GetChildWithName(gameObject, "ThreeQuestions").SetActive(true);
     }
 
     public void ShowAnswer(bool isRight)
     {
-
-
-    }
-
-    private GameObject GetChildWithName(GameObject obj, string name)
-    {
-        Transform trans = obj.transform;
-        Transform childTrans = trans.Find(name);
-        if (childTrans != null)
+        if (!isRight)
         {
-            return childTrans.gameObject;
+            StartCoroutine(ChangeColorToColor(Color.red));
+            IEnumerator ChangeColorToColor(Color color)
+            {
+                SelectedAnswer.color = color;
+                yield return new WaitForSeconds(3);
+                SelectedAnswer.color = Color.black;
+            }
         }
+
         else
         {
-            return null;
-        }
-    }
+            questionObject.transform.gameObject.SetActive(false);
+            StartCoroutine(DestroyIn5Seconds());
+            IEnumerator DestroyIn5Seconds()
+            {
+                yield return new WaitForSeconds(10);
 
-    public void SwitchLayout(TextLayout text)
-    {
-        switch (text)
-        {
-            case TextLayout.ThreeQuestions:
-                GetChildWithName(gameObject, currentTextLayout.ToString()).SetActive(false);
-                GetChildWithName(gameObject, "ThreeQuestions").SetActive(true);
-                currentTextLayout = TextLayout.ThreeQuestions;
-                break;
-            case TextLayout.RightAnswer:
-                GetChildWithName(gameObject, "ThreeQuestions").SetActive(false);
-                GetChildWithName(gameObject, "FullText").SetActive(true);
-                currentTextLayout = TextLayout.RightAnswer;
-                break;
-            case TextLayout.WrongAnswer:
-                GetChildWithName(gameObject, "ThreeQuestions").SetActive(false);
-                GetChildWithName(gameObject, "FullText").SetActive(true);
-                //timerIsRunning = true;
-                //timeRemaining = 5;
-                currentTextLayout = TextLayout.WrongAnswer;
-                break;
-            default:
-                break;
+                //After we have waited 5 seconds 
+                Destroy(questionObject.gameObject);
+
+            }
         }
     }
 
