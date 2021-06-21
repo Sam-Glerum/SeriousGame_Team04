@@ -11,8 +11,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform questionPrefab;
     [SerializeField]
-    private TMP_Text questionChildPrefab;
-    [SerializeField]
     private Transform buttonChildPrefab;
     [SerializeField]
     private Level2 level2;
@@ -21,7 +19,6 @@ public class UIManager : MonoBehaviour
     TMP_Text largeText;
     TMP_Text SelectedAnswer;
 
-    private TextLayout currentTextLayout;
     private float doubleClickTimer = 0;
     private void Start()
     {

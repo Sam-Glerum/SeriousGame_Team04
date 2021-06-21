@@ -6,10 +6,7 @@ using UnityEditor;
 using MyBox;
 using System;
 
-#if UNITY_EDITOR
 [System.Serializable]
-[CustomPropertyDrawer(typeof(ConditionalFieldAttribute))]
-#endif
 public class LevelModule 
 {
     public enum Type
@@ -42,11 +39,14 @@ public class LevelModule
     }
 
     [SerializeField]
-    [ConditionalField("type", false, Type.QUIZ)] private List<Answer> answers;
+    [ConditionalField("type", false, Type.QUIZ)] 
+    private List<Answer> answers;
     [SerializeField]
-    [ConditionalField("type", false, Type.QUIZ)] private string question;
+    [ConditionalField("type", false, Type.QUIZ)]
+    private string question;
     [SerializeField]
-    [ConditionalField("type", false, Type.QUIZ)] public AudioClip questionExplanation;
+    [ConditionalField("type", false, Type.QUIZ)]
+    public AudioClip questionExplanation;
 
     public List<Answer> GetAnswers()
     {
