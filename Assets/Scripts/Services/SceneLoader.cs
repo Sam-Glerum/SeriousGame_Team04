@@ -10,6 +10,16 @@ public class SceneLoader
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + levelIndex);
     }
 
+    public void LoadSceneByName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void LoadHomeScreen()
+    {
+        LoadSceneByName("Homescreen");
+    }
+
     public PlayerData LoadPlayerData(Player player)
     {
         return (PlayerData)SaveSystem.LoadData(player);
