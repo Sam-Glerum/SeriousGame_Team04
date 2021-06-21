@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 351973045}
   - component: {fileID: 351973044}
   - component: {fileID: 351973046}
+  - component: {fileID: 351973047}
   m_Layer: 5
   m_Name: AlbertImage
   m_TagString: Untagged
@@ -291,6 +292,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5dafb515ae01e442a07b5ddf64a73a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &351973047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351973042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078200cec869149c6b89219b12df34c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Een afbeelding van Albert, de butler van het theater
+  serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
 --- !u!1 &531139504
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +408,7 @@ GameObject:
   - component: {fileID: 558353112}
   - component: {fileID: 558353114}
   - component: {fileID: 558353113}
+  - component: {fileID: 558353115}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -516,6 +532,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558353111}
   m_CullTransparentMesh: 1
+--- !u!114 &558353115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558353111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2721e47cfcd8d454f9ae51b8030df99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
+  addidtionalText: knop
 --- !u!1 &780809737
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,6 +989,7 @@ GameObject:
   - component: {fileID: 1397939599}
   - component: {fileID: 1397939601}
   - component: {fileID: 1397939600}
+  - component: {fileID: 1397939602}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1082,6 +1113,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397939598}
   m_CullTransparentMesh: 1
+--- !u!114 &1397939602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397939598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2721e47cfcd8d454f9ae51b8030df99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
+  addidtionalText: knop
 --- !u!1 &1524774883
 GameObject:
   m_ObjectHideFlags: 0

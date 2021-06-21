@@ -1351,7 +1351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078200cec869149c6b89219b12df34c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: Albert
+  description: Een afbeelding van Albert, de butler van het theater
   serviceLocator: {fileID: 11400000, guid: 2486bbd4e97fd4bdab5c9bd3b2b15e4e, type: 2}
 --- !u!1 &998096655
 GameObject:
