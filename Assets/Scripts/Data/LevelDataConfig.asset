@@ -16,11 +16,9 @@ MonoBehaviour:
   - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
-        text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
-          Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
-          had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
-          moet je daar is gaan zoeken... '
+      - audioClip: {fileID: 8300000, guid: a4a180fb39f789b4a9f40012e1728343, type: 3}
+        text: 'Welkom bij Theater de Schalm! Ik ben Albert en ik weet alles over
+          dit theater.  '
         texture: {fileID: 0}
       duration: 0
       type: 0
@@ -29,11 +27,9 @@ MonoBehaviour:
       questionExplanation: {fileID: 0}
     longVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 53c45fa09a520924190cca851177920e, type: 3}
-        text: 'In mijn truc van de drijvende kurk is de kurk natuurlijk erg belangrijk.
-          Ooit gaf ik een waardevol stuk aan de oude directeur van het theater. Hij
-          had hem op een plek gezet waar water veel wordt doorgespoeld. Misschien
-          moet je daar is gaan zoeken... '
+      - audioClip: {fileID: 8300000, guid: a4a180fb39f789b4a9f40012e1728343, type: 3}
+        text: 'Welkom bij Theater de Schalm! Ik ben Albert en ik weet alles over
+          dit theater.  '
         texture: {fileID: 0}
       duration: 10
       type: 0
@@ -43,8 +39,11 @@ MonoBehaviour:
   - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: Ohja Kurk
+      - audioClip: {fileID: 8300000, guid: e92819ae9c5bd4440be6d7f3e9b1504c, type: 3}
+        text: 'Ik loop hier al rond zolang ik leef, mijn vader was ooit de oude directeur
+          van deze plek dus je zou wel kunnen zeggen dat ik ben opgegroeid in dit
+          theater.  Ik ben hier altijd en ken alle hoeken en gaten van het theater,
+          maar toch kom je elke keer weer nieuwe dingen tegen.  '
         texture: {fileID: 0}
       duration: 12
       type: 1
@@ -59,8 +58,11 @@ MonoBehaviour:
       questionExplanation: {fileID: 0}
     longVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: 595d87783a635a944a203b7aede4bca9, type: 3}
-        text: Ohja Kurk
+      - audioClip: {fileID: 8300000, guid: e92819ae9c5bd4440be6d7f3e9b1504c, type: 3}
+        text: 'Ik loop hier al rond zolang ik leef, mijn vader was ooit de oude directeur
+          van deze plek dus je zou wel kunnen zeggen dat ik ben opgegroeid in dit
+          theater.  Ik ben hier altijd en ken alle hoeken en gaten van het theater,
+          maar toch kom je elke keer weer nieuwe dingen tegen.  '
         texture: {fileID: 0}
       duration: 12
       type: 0
@@ -70,11 +72,14 @@ MonoBehaviour:
   - isRequired: 1
     shortVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
-        text: Van Welke Materiaal is kurk gemaakt?
+      - audioClip: {fileID: 8300000, guid: 8a4a150599742394b9e7ea95f1b0a3d1, type: 3}
+        text: Nu we het er toch over hebben, ik heb gisteren een cassettebandje gevonden.
+          Ik ben hem helaas kwijt geraakt, maar ik denk dat ik al weet waar hij ligt.
+          Zou je in de garderobe kunnen kijken of hij in mijn rode colbert met gouden
+          knopen ligt?
         texture: {fileID: 0}
-      duration: 12
-      type: 1
+      duration: 0
+      type: 0
       answers:
       - value: Glas
         isValidAnswer: 0
@@ -86,13 +91,104 @@ MonoBehaviour:
       questionExplanation: {fileID: 0}
     longVersion:
       audioFragments:
-      - audioClip: {fileID: 8300000, guid: e572f315357d2ee43bc16b69cd7864c3, type: 3}
-        text: Van Welke Materiaal is kurk gemaakt?
+      - audioClip: {fileID: 8300000, guid: 8a4a150599742394b9e7ea95f1b0a3d1, type: 3}
+        text: Nu we het er toch over hebben, ik heb gisteren een cassettebandje gevonden.
+          Ik ben hem helaas kwijt geraakt, maar ik denk dat ik al weet waar hij ligt.
+          Zou je in de garderobe kunnen kijken of hij in mijn rode colbert met gouden
+          knopen ligt?
         texture: {fileID: 0}
-      duration: 999
-      type: 1
+      duration: 0
+      type: 0
       answers: []
       question: 
+      questionExplanation: {fileID: 0}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: d22086f98385bc74a9bd08e75739145f, type: 3}
+        text: 'Vraag nu aan een medewerker van het theater om je te helpen met het
+          beantwoorden van de volgende vraag: In welke zak zit de casette van Albert?'
+        texture: {fileID: 0}
+      duration: 0
+      type: 0
+      answers:
+      - value: Glas
+        isValidAnswer: 0
+      - value: Hout
+        isValidAnswer: 1
+      - value: Steen
+        isValidAnswer: 0
+      question: 
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: d22086f98385bc74a9bd08e75739145f, type: 3}
+        text: 'Vraag nu aan een medewerker van het theater om je te helpen met het
+          beantwoorden van de volgende vraag: In welke zak zit de casette van Albert?'
+        texture: {fileID: 0}
+      duration: 0
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: c5dae251c5167384983316e41fe5b351, type: 3}
+        text: 'Is het antwoord A: De casette zit in zijn voorvak. Antwoord B: De
+          casette zit in zijn achterzak. Of antwoord C: De casette zit in zijn binnenzak'
+        texture: {fileID: 0}
+      duration: 0
+      type: 1
+      answers:
+      - value: 'A: De casette zit in zijn voorvak'
+        isValidAnswer: 0
+      - value: 'B: De casette zit in zijn achterzak'
+        isValidAnswer: 1
+      - value: 'C: De casette zit in zijn binnenzak'
+        isValidAnswer: 0
+      question: 
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: c5dae251c5167384983316e41fe5b351, type: 3}
+        text: 'Is het antwoord A: De casette zit in zijn voorvak. Antwoord B: De
+          casette zit in zijn achterzak. Of antwoord C: De casette zit in zijn binnenzak'
+        texture: {fileID: 0}
+      duration: 0
+      type: 1
+      answers:
+      - value: 'A: De casette zit in zijn voorvak'
+        isValidAnswer: 0
+      - value: 'B: De casette zit in zijn achterzak'
+        isValidAnswer: 1
+      - value: 'C: De casette zit in zijn binnenzak'
+        isValidAnswer: 0
+      question: In welke zak zit de casette van Albert?
+      questionExplanation: {fileID: 0}
+  - isRequired: 1
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 65292b0aabc6f6247998ff5ee19e39f1, type: 3}
+        text: Gefelicteerd. Je hebt level 1 gehaald! Bij je volgende bezoek aan het
+          theater krijg je een gratis drankje van me aan de bar.
+        texture: {fileID: 0}
+      duration: 0
+      type: 0
+      answers: []
+      question: Gefelicteerd. Je hebt level 1 gehaald! Bij je volgende bezoek aan
+        het theater krijg je een gratis drankje van me aan de bar.
+      questionExplanation: {fileID: 0}
+    longVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: 65292b0aabc6f6247998ff5ee19e39f1, type: 3}
+        text: Gefelicteerd. Je hebt level 1 gehaald! Bij je volgende bezoek aan het
+          theater krijg je een gratis drankje van me aan de bar.
+        texture: {fileID: 0}
+      duration: 0
+      type: 0
+      answers: []
+      question: In welke zak zit de casette van Albert?
       questionExplanation: {fileID: 0}
   levelTwo:
   - isRequired: 1
