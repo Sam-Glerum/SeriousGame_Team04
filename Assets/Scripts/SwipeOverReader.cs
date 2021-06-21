@@ -23,6 +23,7 @@ public class SwipeOverReader : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (textObject != null)
         {
             string readableText = textObject.text;
+            Handheld.Vibrate();
             voiceService.StopSpeaking();
             voiceService.StartSpeaking(readableText);
             isReading = true;

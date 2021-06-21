@@ -24,6 +24,7 @@ public class SwipeOverDescriptionReader : MonoBehaviour, IPointerEnterHandler, I
     {
         if (description != null)
         {
+            Handheld.Vibrate();
             voiceService.StopSpeaking();
             voiceService.StartSpeaking(description);
             isReading = true;
