@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Level2 level2;
 
+    
+    TMP_Text countDownTimer;
     Transform questionObject;
     TMP_Text largeText;
     TMP_Text SelectedAnswer;
@@ -25,8 +28,8 @@ public class UIManager : MonoBehaviour
     private float doubleClickTimer = 0;
     private void Start()
     {
+        countDownTimer = GameObject.Find("CountdownTimer").GetComponent<TMP_Text>();
         largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>();
-
     }
     void Update()
     {
@@ -39,15 +42,23 @@ public class UIManager : MonoBehaviour
     public void setLargeText(string text) {
 
 
-
         if (largeText == null)
         {
             Debug.Log("Error: LargeText instance is null!");
             return;
         }
+
         else {
             largeText.text = text;
         }
+
+    }
+
+    public void ShowCountDownTimer(Func<double> getRemainingTime)
+    {
+        double seconds = getRemainingTime(); //or whatever time you have
+        string remainingtime = string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60);
+        countDownTimer.text = remainingtime;
     }
 
     public void ShowQuestion(string question, List<string> answers)

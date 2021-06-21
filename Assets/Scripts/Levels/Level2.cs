@@ -16,6 +16,7 @@ public class Level2 : MonoBehaviour
     //[SerializeField]
     //private ChoiceController choiceController;
 
+
     private AudioService audioService;
     private LevelService levelService;
     // Start is called before the first frame update
@@ -29,6 +30,11 @@ public class Level2 : MonoBehaviour
         levelService = serviceLocator.GetLevelService();
 
         play();
+    }
+
+    private void Update()
+    {
+        uIManager.ShowCountDownTimer(levelService.GetAvaiableTimeInSeconds);
     }
 
     private void play()

@@ -67,7 +67,8 @@ public class LevelService : ScriptableObject
 
     public double GetAvaiableTimeInSeconds()
     {
-        return (startTime - new DateTime()).Seconds;
+        DateTime now = DateTime.Now;
+        return (startTime - now).TotalSeconds;
     }
 
     private List<LevelModuleData> GetLeftModules()
