@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,59 +15,92 @@ public class UIManager : MonoBehaviour
     private TMP_Text questionChildPrefab;
     [SerializeField]
     private Transform buttonChildPrefab;
-    [SerializeField]
-    private Level2 level2;
+    private Func<string> getTimerText;
 
+    [SerializeField]
+    TMP_Text countDownTimer;
     Transform questionObject;
     TMP_Text largeText;
     TMP_Text SelectedAnswer;
 
     private TextLayout currentTextLayout;
     private float doubleClickTimer = 0;
+    // Func<string> getTimerText;
+
     private void Start()
     {
+        countDownTimer = GameObject.Find("CountdownTimer").GetComponent<TMP_Text>();
         largeText = GameObject.Find("LargeText").GetComponent<TMP_Text>();
-
     }
+
     void Update()
     {
         if (doubleClickTimer > 0)
         {
             doubleClickTimer -= Time.deltaTime;
         }
+        updateTimerText();
     }
 
-    public void setLargeText(string text) {
-
-
-
+    public void setLargeText(string text)
+    {
         if (largeText == null)
         {
             Debug.Log("Error: LargeText instance is null!");
             return;
         }
-        else {
+
+        else
+        {
             largeText.text = text;
         }
     }
 
-    public void ShowQuestion(string question, List<string> answers)
+    public void StartedLevel(Func<double> getRemainingTime)
+    {
+        Debug.Log("StartedLevel");
+        getTimerText = () =>
+        {
+            double seconds = getRemainingTime();
+            return string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60);
+        };
+    }
+
+    private void updateTimerText()
+    {
+        countDownTimer.text = getTimerText();
+    }
+
+    public void StoppedLevel()
+    {
+        Debug.Log("StoppedLevel");
+        // getTimerText = () => "";
+    }
+
+    public void ShowQuestion(string question, List<string> answers, Action<string> onClick)
     {
         largeText.text = "";
 
-        questionObject = Instantiate(questionPrefab, new Vector2(250,112), Quaternion.identity);
+        questionObject = Instantiate(questionPrefab, new Vector2(250, 112), Quaternion.identity);
         var questionText = questionObject.transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>();
-        questionText.text = question; 
+        questionText.text = question;
 
         foreach (var answer in answers)
         {
             Transform answerButton = Instantiate(buttonChildPrefab, transform.position, transform.rotation, questionObject);
             answerButton.Find("ButtonText").GetComponent<TMP_Text>().text = answer;
 
-            answerButton.GetComponent<Button>().onClick.AddListener(() => { doubleClickTimer ++; });
+            answerButton.GetComponent<Button>().onClick.AddListener(() => { doubleClickTimer++; });
 
             {
-                answerButton.GetComponent<Button>().onClick.AddListener(() => { if (doubleClickTimer >= 1.1) { SelectedAnswer = answerButton.Find("ButtonText").GetComponent<TMP_Text>(); level2.handleQuestionSelected(answer); } });
+                answerButton.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if (doubleClickTimer >= 1.1)
+                    {
+                        SelectedAnswer = answerButton.Find("ButtonText").GetComponent<TMP_Text>();
+                        onClick(answer);
+                    }
+                });
             }
         }
     }

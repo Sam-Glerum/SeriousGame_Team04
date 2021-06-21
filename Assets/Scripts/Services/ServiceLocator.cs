@@ -31,6 +31,7 @@ public class ServiceLocator : ScriptableObject
         voiceService = InstantiateIfNull<VoiceService>(voiceService, voiceServicePrefab);
         return voiceService;
     }
+
     private T InstantiateIfNull<T>(T component, GameObject prefab)
     {
         if (component == null)
