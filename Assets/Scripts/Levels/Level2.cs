@@ -52,12 +52,12 @@ public class Level2 : MonoBehaviour
                 handleQuestionModule(currentLevelModule, onDone);
                 break;
             case LevelModule.Type.AUDIO:
-                handleAudioLevelModuel(currentLevelModule, onDone);
+                handleAudioLevelModule(currentLevelModule, onDone);
                 break;
         }
     }
 
-    private void handleAudioLevelModuel(LevelModule levelModule, Action onDone)
+    private void handleAudioLevelModule(LevelModule levelModule, Action onDone)
     {
         List<AudioFragment> audioFragments = levelModule.GetAudioFragments();
 

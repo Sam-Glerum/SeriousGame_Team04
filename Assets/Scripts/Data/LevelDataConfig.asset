@@ -272,3 +272,35 @@ MonoBehaviour:
       answers: []
       question: 
       questionExplanation: {fileID: 0}
+  - isRequired: 0
+    shortVersion:
+      audioFragments:
+      - audioClip: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
+        text: 'Oke, misschien heb ik je een beetje misleid. Maar hey, dat is wat
+          goochelaars doen. Die goocheltruc ga ik je niet zo vertellen. Dan verliest
+          hij meteen alle magie. Goocheltrucs moet je zelf ontcijferen of je moet
+          ze aanschouwen en alle vragen die ze oproepen omarmen. Want die vragen
+          die het oproept zijn eigenlijk echt leuk, ze houden de spanning erin. Want
+          als je van alles zou weten hoe het werkt en overal de antwoorden op weet,
+          dan is er echt niks leuks meer aan. Als je het antwoord niet weet, dan
+          is er zo ontzettend veel mogelijk. Dan is er ruimte voor fantasie en ruimte
+          voor het onmogelijke. '
+        texture: {fileID: 2800000, guid: 3645dbe19cc21cc428e0da98b43455cc, type: 3}
+      duration: 0
+      type: 2
+      answers:
+      - value: Hout
+        isValidAnswer: 1
+      - value: Glas
+        isValidAnswer: 0
+      - value: Steen
+        isValidAnswer: 0
+      question: Van welk materiaal is kurk gemaakt?
+      questionExplanation: {fileID: 8300000, guid: d435a11a8805fc74f803e2adc08dbedf, type: 3}
+    longVersion:
+      audioFragments: []
+      duration: 0
+      type: 0
+      answers: []
+      question: 
+      questionExplanation: {fileID: 0}
